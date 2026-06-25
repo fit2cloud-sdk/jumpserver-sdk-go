@@ -1,0 +1,33 @@
+# Compiled
+/integration
+*.exe
+*.dll
+*.so
+*.dylib
+*.o
+*.a
+*.test
+*.out
+
+# Test artifacts
+/coverage.out
+/cover.out
+/coverage.html
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Go
+/vendor/
+/bin/
+
+# AI
+.qoder
+.codex
