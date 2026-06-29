@@ -199,7 +199,7 @@ client := jumpserver.NewClient(
 | 自定义 | `client.Customs` | 自定义资产 CRUD |
 | 节点 | `client.Nodes` | 资产树节点 CRUD |
 | 平台 | `client.Platforms` | 平台模板查询 |
-| 区域 | `client.Zones` | 网络区域 CRUD |
+| 网域 | `client.Zones` | 网域 CRUD |
 | 网关 | `client.Gateways` | 网关 CRUD |
 | 标签 | `client.Labels` | 标签 CRUD |
 | 账号 | `client.Accounts` | 账号 CRUD、连接性测试 |
@@ -236,7 +236,7 @@ jumpserver-sdk-go/
 ├── auth/                  # 认证服务
 ├── users/                 # 用户 & 用户组（users.go, groups.go）
 ├── rbac/                  # 角色
-├── assets/                # 资产/节点/平台/区域/网关（7 个文件）
+├── assets/                # 资产/节点/平台/网域/网关（7 个文件）
 ├── accounts/              # 账号/模板/改密/备份（4 个文件）
 ├── orgs/                  # 组织
 ├── perms/                 # 权限
