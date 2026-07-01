@@ -22,11 +22,12 @@ type Account struct {
 
 // AccountRequest is the create/update payload.
 type AccountRequest struct {
+	Template   string `json:"template,omitempty"` // Template ID to use for this account
 	ID         string `json:"id,omitempty"`
 	Name       string `json:"name,omitempty"`
-	Username   string `json:"username"`
-	Asset      string `json:"asset"`
-	SecretType string `json:"secret_type"`
+	Username   string `json:"username,omitempty"`
+	Asset      string `json:"asset,omitempty"`
+	SecretType string `json:"secret_type,omitempty"`
 	Secret     string `json:"secret,omitempty"`
 	PushNow    bool   `json:"push_now,omitempty"`
 	Privileged bool   `json:"privileged,omitempty"`
@@ -40,21 +41,21 @@ type AccountPage = Page[Account]
 
 // AccountTemplate is a reusable account credential template.
 type AccountTemplate struct {
-	ID            string     `json:"id"`
-	Name          string     `json:"name"`
-	Username      string     `json:"username"`
-	SecretType    LabelValue `json:"secret_type"`
-	Secret        string     `json:"secret,omitempty"`
-	Privileged    bool       `json:"privileged"`
-	IsActive      bool       `json:"is_active"`
-	SuFrom        IDName     `json:"su_from"`
-	AutoPush      bool       `json:"auto_push"`
-	PushParams    any        `json:"push_params"`
-	OrgID         string     `json:"org_id"`
-	OrgName       string     `json:"org_name"`
-	Comment       string     `json:"comment"`
-	DateCreated   string     `json:"date_created"`
-	DateUpdated   string     `json:"date_updated"`
+	ID          string     `json:"id"`
+	Name        string     `json:"name"`
+	Username    string     `json:"username"`
+	SecretType  LabelValue `json:"secret_type"`
+	Secret      string     `json:"secret,omitempty"`
+	Privileged  bool       `json:"privileged"`
+	IsActive    bool       `json:"is_active"`
+	SuFrom      IDName     `json:"su_from"`
+	AutoPush    bool       `json:"auto_push"`
+	PushParams  any        `json:"push_params"`
+	OrgID       string     `json:"org_id"`
+	OrgName     string     `json:"org_name"`
+	Comment     string     `json:"comment"`
+	DateCreated string     `json:"date_created"`
+	DateUpdated string     `json:"date_updated"`
 }
 
 // AccountTemplateRequest is the create/update payload for account templates.

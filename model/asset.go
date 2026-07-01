@@ -47,30 +47,33 @@ type AssetWebScript struct {
 	Script any    `json:"script"`
 }
 
-// Asset is a generic JumpServer asset. Zone holds the network zone ID/name
-// returned by the v4 API. Both use any to handle the various shapes the
-// API may return (object, string, or null).
+// Asset is a generic JumpServer asset.
 type Asset struct {
-	ID           string       `json:"id"`
-	Name         string       `json:"name"`
-	Address      string       `json:"address"`
-	Comment      string       `json:"comment"`
-	Zone         any          `json:"zone,omitempty"`
-	Platform     PlatformMini `json:"platform"`
-	Nodes        IDNameList   `json:"nodes"`
-	Labels       []any        `json:"labels"`
-	Protocols    []any        `json:"protocols"`
-	NodesDisplay []string     `json:"nodes_display"`
-	Category     LabelValue   `json:"category"`
-	Type         LabelValue   `json:"type"`
-	Connectivity any          `json:"connectivity"`
-	CreatedBy    string       `json:"created_by"`
-	OrgID        string       `json:"org_id"`
-	OrgName      string       `json:"org_name"`
-	IsActive     bool         `json:"is_active"`
-	DateVerified string       `json:"date_verified"`
-	DateCreated  string       `json:"date_created"`
-	SpecInfo     any          `json:"spec_info"`
+	ID                string       `json:"id"`
+	Name              string       `json:"name"`
+	Address           string       `json:"address"`
+	Comment           string       `json:"comment"`
+	Zone              any          `json:"zone,omitempty"`
+	Platform          PlatformMini `json:"platform"`
+	Nodes             IDNameList   `json:"nodes"`
+	Labels            []any        `json:"labels"`
+	Protocols         []any        `json:"protocols"`
+	NodesDisplay      []string     `json:"nodes_display"`
+	Category          LabelValue   `json:"category"`
+	Type              LabelValue   `json:"type"`
+	Connectivity      any          `json:"connectivity"`
+	CreatedBy         string       `json:"created_by"`
+	OrgID             string       `json:"org_id"`
+	OrgName           string       `json:"org_name"`
+	IsActive          bool         `json:"is_active"`
+	DateVerified      any          `json:"date_verified"`
+	DateCreated       string       `json:"date_created"`
+	DateUpdated       string       `json:"date_updated,omitempty"`
+	SpecInfo          any          `json:"spec_info"`
+	AccountsAmount    int          `json:"accounts_amount,omitempty"`
+	DirectoryServices []string     `json:"directory_services,omitempty"`
+	AutoConfig        any          `json:"auto_config,omitempty"`
+	GatheredInfo      any          `json:"gathered_info,omitempty"`
 }
 
 // GetCategory returns the typed asset category.
@@ -86,20 +89,21 @@ func (a Asset) GetZone() any {
 	return a.Zone
 }
 
-// AssetRequest is the create/update payload. Set Zone to the target
-// network zone ID.
+// AssetRequest is the create/update payload.
 type AssetRequest struct {
-	ID        string        `json:"id,omitempty"`
-	Name      string        `json:"name"`
-	Address   string        `json:"address"`
-	Platform  int           `json:"platform"`
-	Protocols []NamePort    `json:"protocols,omitempty"`
-	Nodes     []string      `json:"nodes,omitempty"`
-	Labels    []string      `json:"labels,omitempty"`
-	Zone      string        `json:"zone,omitempty"`
-	IsActive  bool          `json:"is_active,omitempty"`
-	Comment   string        `json:"comment,omitempty"`
-	SpecInfo  AssetSpecInfo `json:"spec_info,omitempty"`
+	ID                string           `json:"id,omitempty"`
+	Name              string           `json:"name"`
+	Address           string           `json:"address"`
+	Platform          int              `json:"platform"`
+	Protocols         []NamePort       `json:"protocols,omitempty"`
+	Nodes             []string         `json:"nodes,omitempty"`
+	Labels            []string         `json:"labels,omitempty"`
+	Accounts          []AccountRequest `json:"accounts,omitempty"`
+	DirectoryServices []string         `json:"directory_services,omitempty"`
+	Zone              string           `json:"zone,omitempty"`
+	IsActive          bool             `json:"is_active,omitempty"`
+	Comment           string           `json:"comment,omitempty"`
+	SpecInfo          AssetSpecInfo    `json:"spec_info,omitempty"`
 }
 
 // AssetPage is the paginated list envelope for Assets.

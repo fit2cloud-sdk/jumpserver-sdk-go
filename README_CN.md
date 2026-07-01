@@ -9,7 +9,7 @@
 
 ## 特性
 
-- **完整 CRUD 覆盖** — 26 个服务模块，涵盖用户、资产、账号、权限、审计、工单等全部核心功能
+- **完整 CRUD 覆盖** — 28 个服务模块，涵盖用户、资产、账号、权限、审计、工单、作业管理等全部核心功能
 - **分类资产支持** — Hosts、Devices、Databases、Webs、Clouds、Customs 六大资产类别独立操作
 - **多种认证方式** — AccessKey (HMAC-SHA256)、Bearer Token、Private Token、HTTP Basic、自定义 Authenticator
 - **组织作用域** — `WithOrgScope(id)` 切换组织上下文，无需重建 Client
@@ -207,13 +207,15 @@ client := jumpserver.NewClient(
 | 改密自动化 | `client.ChangeSecrets` | 改密策略 CRUD + 执行 |
 | 账号备份 | `client.AccountBackups` | 备份计划 CRUD + 执行 |
 | 组织 | `client.Organizations` | 组织 CRUD |
-| 权限 | `client.Permissions` | 资产授权 CRUD |
+| 权限 | `client.Permissions` | 资产授权 CRUD、批量添加关系 |
+| 我的资产 | `client.Self` | 当前用户可见的资产及账号 |
 | 命令过滤 | `client.CommandFilters` | 命令过滤 + 命令组 CRUD |
 | 登录 ACL | `client.LoginACLs` | 登录 ACL 查询 |
 | 审计 | `client.Audits` | 会话、命令、FTP、登录、操作日志 |
 | 终端 | `client.Terminal` | 终端配置、连接方式 |
 | 工单 | `client.Tickets` | 工单 + 流程管理 |
 | 设置 | `client.Settings` | 系统设置查询 |
+| 作业 | `client.Ops` | 快捷命令创建与结果查询 |
 | 企业版 | `client.Xpack` | License 查询 |
 
 ## 包结构
@@ -239,7 +241,8 @@ jumpserver-sdk-go/
 ├── assets/                # 资产/节点/平台/网域/网关（7 个文件）
 ├── accounts/              # 账号/模板/改密/备份（4 个文件）
 ├── orgs/                  # 组织
-├── perms/                 # 权限
+├── perms/                 # 权限（+ 我的资产）
+├── ops/                   # 作业
 ├── acls/                  # 命令过滤 & 登录 ACL
 ├── audits/                # 审计日志（sessions, commands, ftplogs, logs）
 ├── terminal/              # 终端

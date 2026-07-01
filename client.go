@@ -24,6 +24,7 @@ import (
 	"github.com/jumpserver-south/jumpserver-sdk-go/auth"
 	"github.com/jumpserver-south/jumpserver-sdk-go/internal/core"
 	"github.com/jumpserver-south/jumpserver-sdk-go/labels"
+	"github.com/jumpserver-south/jumpserver-sdk-go/ops"
 	"github.com/jumpserver-south/jumpserver-sdk-go/orgs"
 	"github.com/jumpserver-south/jumpserver-sdk-go/perms"
 	"github.com/jumpserver-south/jumpserver-sdk-go/rbac"
@@ -81,12 +82,14 @@ type Client struct {
 	AccountBackups   *accounts.BackupService
 	Organizations    *orgs.Service
 	Permissions      *perms.Service
+	Self             *perms.SelfService
 	CommandFilters   *acls.CommandFiltersService
 	LoginACLs        *acls.LoginACLsService
 	Audits           *audits.Service
 	Terminal         *terminal.Service
 	Tickets          *tickets.Service
 	Settings         *settings.Service
+	Ops              *ops.Service
 	Xpack            *xpack.Service
 }
 
@@ -144,12 +147,14 @@ func (c *Client) initServices() {
 	c.AccountBackups = accounts.NewBackupService(c)
 	c.Organizations = orgs.NewService(c)
 	c.Permissions = perms.NewService(c)
+	c.Self = perms.NewSelfService(c)
 	c.CommandFilters = acls.NewCommandFiltersService(c)
 	c.LoginACLs = acls.NewLoginACLsService(c)
 	c.Audits = audits.NewService(c)
 	c.Terminal = terminal.NewService(c)
 	c.Tickets = tickets.NewService(c)
 	c.Settings = settings.NewService(c)
+	c.Ops = ops.NewService(c)
 	c.Xpack = xpack.NewService(c)
 }
 

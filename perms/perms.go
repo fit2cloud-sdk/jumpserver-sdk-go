@@ -9,9 +9,14 @@ import (
 )
 
 const (
-	AssetPermissionListURL   = "/api/v1/perms/asset-permissions/"
-	AssetPermissionDetailURL = "/api/v1/perms/asset-permissions/%s/"
-	SelfAssetAccountsURL     = "/api/v1/perms/users/self/assets/%s/"
+	AssetPermissionListURL            = "/api/v1/perms/asset-permissions/"
+	AssetPermissionDetailURL          = "/api/v1/perms/asset-permissions/%s/"
+	SelfAssetAccountsURL              = "/api/v1/perms/users/self/assets/%s/"
+	SelfAssetsListURL                 = "/api/v1/perms/users/self/assets/"
+	AssetPermUsersRelationsURL        = "/api/v1/perms/asset-permissions-users-relations/"
+	AssetPermUserGroupsRelationsURL   = "/api/v1/perms/asset-permissions-user-groups-relations/"
+	AssetPermAssetsRelationsURL       = "/api/v1/perms/asset-permissions-assets-relations/"
+	AssetPermNodesRelationsURL        = "/api/v1/perms/asset-permissions-nodes-relations/"
 )
 
 // Service handles /api/v1/perms/asset-permissions.
@@ -58,6 +63,62 @@ func (s *Service) GetSelfAssetAccounts(ctx context.Context, assetID string) (map
 		return nil, nil, err
 	}
 	out := map[string]any{}
+	resp, err := s.client.Do(ctx, httpReq, &out)
+	if err != nil {
+		return nil, resp, err
+	}
+	return out, resp, nil
+}
+
+// AddUsersRelations batch-adds user relations to asset permissions.
+func (s *Service) AddUsersRelations(ctx context.Context, req []model.AssetPermUserRelation) ([]model.AssetPermUserRelationDetail, *core.Response, error) {
+	httpReq, err := s.client.NewRequest(ctx, "POST", AssetPermUsersRelationsURL, req)
+	if err != nil {
+		return nil, nil, err
+	}
+	var out []model.AssetPermUserRelationDetail
+	resp, err := s.client.Do(ctx, httpReq, &out)
+	if err != nil {
+		return nil, resp, err
+	}
+	return out, resp, nil
+}
+
+// AddUserGroupsRelations batch-adds user group relations to asset permissions.
+func (s *Service) AddUserGroupsRelations(ctx context.Context, req []model.AssetPermUserGroupRelation) ([]model.AssetPermUserGroupRelationDetail, *core.Response, error) {
+	httpReq, err := s.client.NewRequest(ctx, "POST", AssetPermUserGroupsRelationsURL, req)
+	if err != nil {
+		return nil, nil, err
+	}
+	var out []model.AssetPermUserGroupRelationDetail
+	resp, err := s.client.Do(ctx, httpReq, &out)
+	if err != nil {
+		return nil, resp, err
+	}
+	return out, resp, nil
+}
+
+// AddAssetsRelations batch-adds asset relations to asset permissions.
+func (s *Service) AddAssetsRelations(ctx context.Context, req []model.AssetPermAssetRelation) ([]model.AssetPermAssetRelationDetail, *core.Response, error) {
+	httpReq, err := s.client.NewRequest(ctx, "POST", AssetPermAssetsRelationsURL, req)
+	if err != nil {
+		return nil, nil, err
+	}
+	var out []model.AssetPermAssetRelationDetail
+	resp, err := s.client.Do(ctx, httpReq, &out)
+	if err != nil {
+		return nil, resp, err
+	}
+	return out, resp, nil
+}
+
+// AddNodesRelations batch-adds node relations to asset permissions.
+func (s *Service) AddNodesRelations(ctx context.Context, req []model.AssetPermNodeRelation) ([]model.AssetPermNodeRelationDetail, *core.Response, error) {
+	httpReq, err := s.client.NewRequest(ctx, "POST", AssetPermNodesRelationsURL, req)
+	if err != nil {
+		return nil, nil, err
+	}
+	var out []model.AssetPermNodeRelationDetail
 	resp, err := s.client.Do(ctx, httpReq, &out)
 	if err != nil {
 		return nil, resp, err

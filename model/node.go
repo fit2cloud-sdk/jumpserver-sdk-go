@@ -20,3 +20,22 @@ type NodeRequest struct {
 
 // NodePage is the paginated list envelope for Nodes.
 type NodePage = Page[Node]
+
+// NodeChildRequest is the payload for creating a child node.
+type NodeChildRequest struct {
+	Value string `json:"value"`
+}
+
+// NodeTreeItem is a node in the children tree response.
+type NodeTreeItem struct {
+	ID        string `json:"id"`
+	Key       string `json:"key"`
+	Value     string `json:"value"`
+	OrgID     string `json:"org_id"`
+	Name      string `json:"name"`
+	FullValue string `json:"full_value"`
+	OrgName   string `json:"org_name"`
+}
+
+// NodeTreeItemPage is the paginated list envelope for NodeTreeItems.
+type NodeTreeItemPage = Page[NodeTreeItem]

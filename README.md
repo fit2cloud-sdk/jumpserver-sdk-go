@@ -9,7 +9,7 @@ Go SDK for [JumpServer](https://www.jumpserver.org/) REST API, targeting **v4.10
 
 ## Features
 
-- **Full CRUD coverage** — 26 service modules covering users, assets, accounts, permissions, audits, tickets, and more
+- **Full CRUD coverage** — 28 service modules covering users, assets, accounts, permissions, audits, tickets, ops jobs, and more
 - **Typed asset categories** — Hosts, Devices, Databases, Webs, Clouds, Customs each with dedicated CRUD operations
 - **Multiple auth methods** — AccessKey (HMAC-SHA256), Bearer Token, Private Token, HTTP Basic, custom Authenticator
 - **Organization scope** — `WithOrgScope(id)` switches org context without rebuilding the client
@@ -205,13 +205,15 @@ client := jumpserver.NewClient(
 | Change Secrets | `client.ChangeSecrets` | Secret rotation policy CRUD + execute |
 | Account Backups | `client.AccountBackups` | Backup plan CRUD + execute |
 | Organizations | `client.Organizations` | Organization CRUD |
-| Permissions | `client.Permissions` | Asset permission CRUD |
+| Permissions | `client.Permissions` | Asset permission CRUD, batch-relation add |
+| Self | `client.Self` | Current user's own assets & accounts |
 | Command Filters | `client.CommandFilters` | Command filter + command group CRUD |
 | Login ACL | `client.LoginACLs` | Login ACL queries |
 | Audits | `client.Audits` | Sessions, commands, FTP, login & operation logs |
 | Terminal | `client.Terminal` | Terminal config, connect methods |
 | Tickets | `client.Tickets` | Ticket + workflow management |
 | Settings | `client.Settings` | System setting queries |
+| Ops | `client.Ops` | Quick-command job create & result query |
 | Enterprise | `client.Xpack` | License queries |
 
 ## Package Structure
@@ -237,7 +239,8 @@ jumpserver-sdk-go/
 ├── assets/                # Assets/nodes/platforms/zones/gateways (7 files)
 ├── accounts/              # Accounts/templates/backup/change-secret (4 files)
 ├── orgs/                  # Organizations
-├── perms/                 # Permissions
+├── perms/                 # Permissions (+ self assets)
+├── ops/                   # Ops jobs
 ├── acls/                  # Command filters & login ACLs
 ├── audits/                # Audit logs (sessions, commands, ftplogs, logs)
 ├── terminal/              # Terminal
