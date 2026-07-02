@@ -1,8 +1,8 @@
 package main
 
 import (
-	jumpserver "github.com/jumpserver-south/jumpserver-sdk-go"
-	"github.com/jumpserver-south/jumpserver-sdk-go/model"
+	jumpserver "github.com/fit2cloud-sdk/jumpserver-sdk-go"
+	"github.com/fit2cloud-sdk/jumpserver-sdk-go/model"
 )
 
 func testUsers() {

@@ -1,7 +1,7 @@
 package main
 
 import (
-	jumpserver "github.com/jumpserver-south/jumpserver-sdk-go"
+	jumpserver "github.com/fit2cloud-sdk/jumpserver-sdk-go"
 )
 
 func testPlatforms() {

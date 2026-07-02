@@ -3,7 +3,7 @@ package sdkutil
 import (
 	"context"
 
-	"github.com/jumpserver-south/jumpserver-sdk-go/internal/core"
+	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/core"
 )
 
 // List fetches a paginated list by decoding the response into a

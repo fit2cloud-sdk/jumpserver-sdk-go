@@ -1,3 +1,3 @@
-module github.com/jumpserver-south/jumpserver-sdk-go
+module github.com/fit2cloud-sdk/jumpserver-sdk-go
 
 go 1.25

@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jumpserver-south/jumpserver-sdk-go/model"
+	"github.com/fit2cloud-sdk/jumpserver-sdk-go/model"
 )
 
 func newTestClient(t *testing.T, srv *httptest.Server) *Client {

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/jumpserver-south/jumpserver-sdk-go/model"
+	"github.com/fit2cloud-sdk/jumpserver-sdk-go/model"
 )
 
 func testOps() {

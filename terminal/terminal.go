@@ -3,8 +3,8 @@ package terminal
 import (
 	"context"
 
-	"github.com/jumpserver-south/jumpserver-sdk-go/internal/core"
-	"github.com/jumpserver-south/jumpserver-sdk-go/internal/sdkutil"
+	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/core"
+	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/sdkutil"
 )
 
 const (

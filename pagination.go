@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/jumpserver-south/jumpserver-sdk-go/internal/core"
+	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/core"
 )
 
 // Type aliases re-export core types so users can access them from the

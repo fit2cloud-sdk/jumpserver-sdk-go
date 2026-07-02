@@ -1,11 +1,14 @@
-[中文文档](README_CN.md)
+[![CN](https://img.shields.io/badge/CN-中文-red)](README_CN.md)
+[![EN](https://img.shields.io/badge/EN-English-blue)](README.md)
 
 # jumpserver-sdk-go
 
 Go SDK for [JumpServer](https://www.jumpserver.org/) REST API, targeting **v4.10.x**.
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/jumpserver-south/jumpserver-sdk-go.svg)](https://pkg.go.dev/github.com/jumpserver-south/jumpserver-sdk-go)
-[![Go Report Card](https://goreportcard.com/badge/github.com/jumpserver-south/jumpserver-sdk-go)](https://goreportcard.com/report/github.com/jumpserver-south/jumpserver-sdk-go)
+[中文文档](README_CN.md) | [English](README.md)
+
+[![Go Reference](https://pkg.go.dev/badge/github.com/fit2cloud-sdk/jumpserver-sdk-go.svg)](https://pkg.go.dev/github.com/fit2cloud-sdk/jumpserver-sdk-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/fit2cloud-sdk/jumpserver-sdk-go)](https://goreportcard.com/report/github.com/fit2cloud-sdk/jumpserver-sdk-go)
 
 ## Features
 
@@ -21,7 +24,7 @@ Go SDK for [JumpServer](https://www.jumpserver.org/) REST API, targeting **v4.10
 ## Installation
 
 ```bash
-go get github.com/jumpserver-south/jumpserver-sdk-go
+go get github.com/fit2cloud-sdk/jumpserver-sdk-go
 ```
 
 ## Quick Start
@@ -35,8 +38,8 @@ import (
     "log"
     "os"
 
-    jumpserver "github.com/jumpserver-south/jumpserver-sdk-go"
-    "github.com/jumpserver-south/jumpserver-sdk-go/model"
+    jumpserver "github.com/fit2cloud-sdk/jumpserver-sdk-go"
+    "github.com/fit2cloud-sdk/jumpserver-sdk-go/model"
 )
 
 func main() {
