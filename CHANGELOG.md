@@ -13,7 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
   Permissions, CommandFilters, LoginACLs, Audits, Terminal, Tickets,
   Settings, Xpack.
 - Pluggable authentication: `SignatureAuth` (HMAC-SHA256), `BearerTokenAuth`,
-  `PrivateTokenAuth`, `BasicAuth`, and custom `Authenticator`.
+  `PrivateTokenAuth`, `PasswordAuth` (username/password), and custom `Authenticator`.
 - Typed pagination via `ListOptions` and `Response`; `Client.WalkPages`
   auto-pagination helper.
 - Typed `APIError` with `IsNotFound`, `IsUnauthorized`, `IsForbidden`,

@@ -14,7 +14,7 @@ Go SDK for [JumpServer](https://www.jumpserver.org/) REST API, targeting **v4.10
 
 - **Full CRUD coverage** — 28 service modules covering users, assets, accounts, permissions, audits, tickets, ops jobs, and more
 - **Typed asset categories** — Hosts, Devices, Databases, Webs, Clouds, Customs each with dedicated CRUD operations
-- **Multiple auth methods** — AccessKey (HMAC-SHA256), Bearer Token, Private Token, HTTP Basic, custom Authenticator
+- **Multiple auth methods** — AccessKey (HMAC-SHA256), Bearer Token, Private Token, Password Auth (username/password), custom Authenticator
 - **Organization scope** — `WithOrgScope(id)` switches org context without rebuilding the client
 - **Auto pagination** — `WalkPages()` iterates through all pages automatically
 - **Smart retry** — Exponential backoff with full jitter, retries only transient errors (timeout, connection reset, 429/5xx)
@@ -91,8 +91,8 @@ jumpserver.WithBearerToken(token)
 // Private Token (Authorization: Token <token>)
 jumpserver.WithPrivateToken(token)
 
-// HTTP Basic
-jumpserver.WithBasicAuth(username, password)
+// Password Auth (username/password, auto-obtains Bearer token)
+jumpserver.WithPasswordAuth(username, password)
 
 // Custom authenticator
 jumpserver.WithAuthenticator(myAuth)

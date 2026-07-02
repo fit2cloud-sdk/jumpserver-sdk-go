@@ -14,7 +14,7 @@
 
 - **完整 CRUD 覆盖** — 28 个服务模块，涵盖用户、资产、账号、权限、审计、工单、作业管理等全部核心功能
 - **分类资产支持** — Hosts、Devices、Databases、Webs、Clouds、Customs 六大资产类别独立操作
-- **多种认证方式** — AccessKey (HMAC-SHA256)、Bearer Token、Private Token、HTTP Basic、自定义 Authenticator
+- **多种认证方式** — AccessKey (HMAC-SHA256)、Bearer Token、Private Token、密码认证 (username/password)、自定义 Authenticator
 - **组织作用域** — `WithOrgScope(id)` 切换组织上下文，无需重建 Client
 - **自动分页** — `WalkPages()` 函数自动遍历所有分页
 - **智能重试** — 指数退避 + 全抖动，仅重试瞬态错误（timeout、connection reset、429/5xx），永久错误不重试
@@ -91,8 +91,8 @@ jumpserver.WithBearerToken(token)
 // Private Token (Authorization: Token <token>)
 jumpserver.WithPrivateToken(token)
 
-// HTTP Basic
-jumpserver.WithBasicAuth(username, password)
+// 密码认证（用户名/密码，自动获取 Bearer token）
+jumpserver.WithPasswordAuth(username, password)
 
 // 自定义认证器
 jumpserver.WithAuthenticator(myAuth)

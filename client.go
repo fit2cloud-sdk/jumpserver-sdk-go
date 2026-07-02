@@ -120,6 +120,11 @@ func NewClient(opts ...Option) *Client {
 		debugRequests: cfg.debugRequests,
 	}
 
+	// Initialize PasswordAuth with client's baseURL and httpClient.
+	if pa, ok := c.auth.(*PasswordAuth); ok {
+		pa.init(u.String(), c.httpClient)
+	}
+
 	c.initServices()
 	return c
 }

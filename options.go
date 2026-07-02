@@ -42,7 +42,7 @@ func defaultConfig() *clientConfig {
 		userAgent:          userAgent,
 		headers:            map[string]string{},
 		cookies:            map[string]string{},
-		orgID:              "00000000-0000-0000-0000-000000000002",
+		orgID:              "ROOT",
 		timeout:            30 * time.Second,
 		maxRetries:         3,
 		retryMinWait:       500 * time.Millisecond,
@@ -147,10 +147,18 @@ func WithPrivateToken(token string) Option {
 	return func(c *clientConfig) { c.auth = &PrivateTokenAuth{Token: token} }
 }
 
-// WithBasicAuth authenticates with HTTP Basic. Useful to obtain a
-// Bearer token through the authentication endpoint.
-func WithBasicAuth(username, password string) Option {
-	return func(c *clientConfig) { c.auth = &BasicAuth{Username: username, Password: password} }
+// WithPasswordAuth authenticates by obtaining a Bearer token from the
+// JumpServer authentication endpoint using username and password.
+//
+// The base URL and HTTP client are automatically inherited from the
+// Client configuration.
+func WithPasswordAuth(username, password string) Option {
+	return func(c *clientConfig) {
+		c.auth = &PasswordAuth{
+			Username: username,
+			Password: password,
+		}
+	}
 }
 
 // WithAuthenticator installs a fully custom [Authenticator].
