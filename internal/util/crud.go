@@ -1,4 +1,4 @@
-package sdkutil
+package util
 
 import (
 	"context"
@@ -32,6 +32,34 @@ func List[T any](ctx context.Context, client core.HTTPClient, listURL string, op
 		resp.PreviousURL = page.PreviousURL
 	}
 	return page.Results, resp, nil
+}
+
+// ListByPath is like List but takes a fully-formed path (including query
+// parameters) instead of building one from opts. Use this when you have
+// already assembled query params (e.g. from a filters map) externally.
+func ListByPath[T any](ctx context.Context, client core.HTTPClient, path string) ([]T, *core.Response, error) {
+	httpReq, err := client.NewRequest(ctx, "GET", path, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+	var page core.Page[T]
+	resp, err := client.Do(ctx, httpReq, &page)
+	if err != nil {
+		return nil, resp, err
+	}
+	if resp != nil {
+		resp.Count = page.Total
+		resp.NextURL = page.NextURL
+		resp.PreviousURL = page.PreviousURL
+	}
+	return page.Results, resp, nil
+}
+
+// ListWithParams builds a URL from listURL + params and delegates to ListByPath.
+// It is a convenience wrapper when you already have a params map.
+func ListWithParams[T any](ctx context.Context, client core.HTTPClient, listURL string, params map[string]string) ([]T, *core.Response, error) {
+	path := AppendQuery(listURL, params)
+	return ListByPath[T](ctx, client, path)
 }
 
 // Get fetches a single resource by ID and returns a pointer to it.

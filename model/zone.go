@@ -13,8 +13,8 @@ type Zone struct {
 	OrgName      string     `json:"org_name"`
 	CreatedBy    string     `json:"created_by,omitempty"`
 	UpdatedBy    string     `json:"updated_by,omitempty"`
-	DateCreated   string     `json:"date_created"`
-	DateUpdated   string     `json:"date_updated"`
+	DateCreated  string     `json:"date_created"`
+	DateUpdated  string     `json:"date_updated"`
 }
 
 // ZoneRequest is the create/update payload.

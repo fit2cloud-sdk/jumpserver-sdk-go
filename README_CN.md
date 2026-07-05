@@ -12,7 +12,7 @@
 
 ## 特性
 
-- **完整 CRUD 覆盖** — 28 个服务模块，涵盖用户、资产、账号、权限、审计、工单、作业管理等全部核心功能
+- **完整 CRUD 覆盖** — 31 个服务模块，涵盖用户、资产、账号、权限、审计、工单、作业管理等全部核心功能
 - **分类资产支持** — Hosts、Devices、Databases、Webs、Clouds、Customs 六大资产类别独立操作
 - **多种认证方式** — AccessKey (HMAC-SHA256)、Bearer Token、Private Token、密码认证 (username/password)、自定义 Authenticator
 - **组织作用域** — `WithOrgScope(id)` 切换组织上下文，无需重建 Client
@@ -22,6 +22,8 @@
 - **Go 1.25** — 使用 `math/rand/v2`、`maps.Clone`、`for range int` 等新特性
 
 ## 安装
+
+**要求 Go 1.25 或更高版本。**
 
 ```bash
 go get github.com/fit2cloud-sdk/jumpserver-sdk-go
@@ -177,49 +179,51 @@ client := jumpserver.NewClient(
 ```
 
 **重试条件**：
+
 - HTTP 408、429、500、502、503、504
 - 瞬态网络错误（timeout、connection reset、DNS 临时故障）
 
 **不重试**：
+
 - `context.Canceled` / `context.DeadlineExceeded`
 - TLS 证书错误
 - 4xx 客户端错误（除 408、429）
 
 ## 服务列表
 
-| 服务 | 字段 | 说明 |
-|------|------|------|
-| 认证 | `client.Auth` | 登录、MFA、连接令牌、SSO |
-| 用户 | `client.Users` | 用户 CRUD、Profile |
-| 用户组 | `client.UserGroups` | 用户组 CRUD、成员管理 |
-| 角色 | `client.Roles` | 组织/系统角色查询 |
-| 资产 (通用) | `client.Assets` | 通用资产查询、授权用户 |
-| 主机 | `client.Hosts` | 主机 CRUD |
-| 网络设备 | `client.Devices` | 网络设备 CRUD |
-| 数据库 | `client.Databases` | 数据库 CRUD |
-| Web | `client.Webs` | Web 资产 CRUD |
-| 云 | `client.Clouds` | 云资产 CRUD |
-| 自定义 | `client.Customs` | 自定义资产 CRUD |
-| 节点 | `client.Nodes` | 资产树节点 CRUD |
-| 平台 | `client.Platforms` | 平台模板查询 |
-| 网域 | `client.Zones` | 网域 CRUD |
-| 网关 | `client.Gateways` | 网关 CRUD |
-| 标签 | `client.Labels` | 标签 CRUD |
-| 账号 | `client.Accounts` | 账号 CRUD、连接性测试 |
-| 账号模板 | `client.AccountTemplates` | 账号模板 CRUD |
-| 改密自动化 | `client.ChangeSecrets` | 改密策略 CRUD + 执行 |
-| 账号备份 | `client.AccountBackups` | 备份计划 CRUD + 执行 |
-| 组织 | `client.Organizations` | 组织 CRUD |
-| 权限 | `client.Permissions` | 资产授权 CRUD、批量添加关系 |
-| 我的资产 | `client.Self` | 当前用户可见的资产及账号 |
-| 命令过滤 | `client.CommandFilters` | 命令过滤 + 命令组 CRUD |
-| 登录 ACL | `client.LoginACLs` | 登录 ACL 查询 |
-| 审计 | `client.Audits` | 会话、命令、FTP、登录、操作日志 |
-| 终端 | `client.Terminal` | 终端配置、连接方式 |
-| 工单 | `client.Tickets` | 工单 + 流程管理 |
-| 设置 | `client.Settings` | 系统设置查询 |
-| 作业 | `client.Ops` | 快捷命令创建与结果查询 |
-| 企业版 | `client.Xpack` | License 查询 |
+| 服务        | 字段                      | 说明                            |
+| ----------- | ------------------------- | ------------------------------- |
+| 认证        | `client.Auth`             | 登录、MFA、连接令牌、SSO        |
+| 用户        | `client.Users`            | 用户 CRUD、Profile              |
+| 用户组      | `client.UserGroups`       | 用户组 CRUD、成员管理           |
+| 角色        | `client.Roles`            | 组织/系统角色查询               |
+| 资产 (通用) | `client.Assets`           | 通用资产查询、授权用户          |
+| 主机        | `client.Hosts`            | 主机 CRUD                       |
+| 网络设备    | `client.Devices`          | 网络设备 CRUD                   |
+| 数据库      | `client.Databases`        | 数据库 CRUD                     |
+| Web         | `client.Webs`             | Web 资产 CRUD                   |
+| 云          | `client.Clouds`           | 云资产 CRUD                     |
+| 自定义      | `client.Customs`          | 自定义资产 CRUD                 |
+| 节点        | `client.Nodes`            | 资产树节点 CRUD                 |
+| 平台        | `client.Platforms`        | 平台模板查询                    |
+| 网域        | `client.Zones`            | 网域 CRUD                       |
+| 网关        | `client.Gateways`         | 网关 CRUD                       |
+| 标签        | `client.Labels`           | 标签 CRUD                       |
+| 账号        | `client.Accounts`         | 账号 CRUD、连接性测试           |
+| 账号模板    | `client.AccountTemplates` | 账号模板 CRUD                   |
+| 改密自动化  | `client.ChangeSecrets`    | 改密策略 CRUD + 执行            |
+| 账号备份    | `client.AccountBackups`   | 备份计划 CRUD + 执行            |
+| 组织        | `client.Orgs`    | 组织 CRUD                       |
+| 权限        | `client.Permissions`      | 资产授权 CRUD、批量添加关系     |
+| 我的资产    | `client.Self`             | 当前用户可见的资产及账号        |
+| 命令过滤    | `client.CommandFilters`   | 命令过滤 + 命令组 CRUD          |
+| 登录 ACL    | `client.LoginACLs`        | 登录 ACL 查询                   |
+| 审计        | `client.Audits`           | 会话、命令、FTP、登录、操作日志 |
+| 终端        | `client.Terminal`         | 终端配置、连接方式              |
+| 工单        | `client.Tickets`          | 工单 + 流程管理                 |
+| 设置        | `client.Settings`         | 系统设置查询                    |
+| 作业        | `client.Ops`              | 快捷命令创建与结果查询          |
+| 企业版      | `client.Xpack`            | License 查询                    |
 
 ## 包结构
 
@@ -235,7 +239,7 @@ jumpserver-sdk-go/
 ├── Makefile               # 构建/测试/覆盖率等常用命令
 │
 ├── internal/core/         # 共享类型（HTTPClient 接口）
-├── internal/sdkutil/      # 内部工具函数
+├── internal/util/      # 内部工具函数
 ├── model/                 # 数据模型（纯类型定义）
 │
 ├── auth/                  # 认证服务
@@ -278,11 +282,14 @@ go run ./examples/integration
 ## 开发
 
 ```bash
-make build       # 编译所有包
-make test        # 运行单元测试
-make vet         # 静态检查
-make all         # vet + test + build
-make coverage    # 生成测试覆盖率报告
+	make build       # 编译所有包
+	make test        # 运行单元测试
+	make vet         # 静态检查
+	make fmt         # 格式化代码 (gofmt -w -s)
+	make lint        # 静态分析 (staticcheck)
+	make all         # vet + test + build
+	make precommit   # fmt + lint + vet + test + build
+	make coverage    # 生成测试覆盖率报告
 make clean       # 清理编译产物
 ```
 

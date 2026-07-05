@@ -31,7 +31,6 @@ var (
 	ctx    context.Context
 	ts     string
 	orgID  string
-	baseURL string
 
 	createdNodeID      string
 	createdZoneID      string
@@ -97,9 +96,8 @@ func main() {
 	)
 	ctx = context.Background()
 	ts = fmt.Sprintf("%d", time.Now().UnixNano()%100000)
-	baseURL = url
 
-	orgs, _, err := client.Organizations.List(ctx, &jumpserver.ListOptions{Limit: 10})
+	orgs, _, err := client.Orgs.List(ctx, &jumpserver.ListOptions{Limit: 10})
 	if err == nil && len(orgs) > 0 {
 		for _, o := range orgs {
 			if !o.IsRoot {

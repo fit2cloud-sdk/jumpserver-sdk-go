@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/core"
-	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/sdkutil"
+	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/util"
 )
 
 const (
@@ -29,7 +29,7 @@ func NewService(c core.HTTPClient) *Service {
 // Register registers a new terminal component with the server.
 func (s *Service) Register(ctx context.Context, name, typeName, comment string) (map[string]any, *core.Response, error) {
 	body := map[string]string{"name": name, "type": typeName, "comment": comment}
-	return sdkutil.MapAction(ctx, s.client, RegisterURL, body)
+	return util.MapAction(ctx, s.client, RegisterURL, body)
 }
 
 // Config returns the terminal configuration blob.
@@ -67,4 +67,9 @@ func (s *Service) ConnectMethods(ctx context.Context) (map[string]any, *core.Res
 		return nil, resp, err
 	}
 	return out, resp, nil
+}
+
+// GetTask fetches a terminal task by ID.
+func (s *Service) GetTask(ctx context.Context, taskID string) (map[string]any, *core.Response, error) {
+	return util.MapAction(ctx, s.client, util.Spath(TaskURL, taskID), nil)
 }

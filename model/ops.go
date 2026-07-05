@@ -20,10 +20,10 @@ type OpsJobResponse struct {
 
 // OpsJobResultSummary contains the execution summary of a job.
 type OpsJobResultSummary struct {
-	Ok       []string            `json:"ok"`
-	Dark     map[string]any      `json:"dark"`
-	Skipped  []string            `json:"skipped"`
-	Failures map[string]any      `json:"failures"`
+	Ok       []string       `json:"ok"`
+	Dark     map[string]any `json:"dark"`
+	Skipped  []string       `json:"skipped"`
+	Failures map[string]any `json:"failures"`
 }
 
 // OpsJobResult is the execution result of a quick-command job.

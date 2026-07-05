@@ -12,7 +12,7 @@ Go SDK for [JumpServer](https://www.jumpserver.org/) REST API, targeting **v4.10
 
 ## Features
 
-- **Full CRUD coverage** — 28 service modules covering users, assets, accounts, permissions, audits, tickets, ops jobs, and more
+- **Full CRUD coverage** — 31 service modules covering users, assets, accounts, permissions, audits, tickets, ops jobs, and more
 - **Typed asset categories** — Hosts, Devices, Databases, Webs, Clouds, Customs each with dedicated CRUD operations
 - **Multiple auth methods** — AccessKey (HMAC-SHA256), Bearer Token, Private Token, Password Auth (username/password), custom Authenticator
 - **Organization scope** — `WithOrgScope(id)` switches org context without rebuilding the client
@@ -22,6 +22,8 @@ Go SDK for [JumpServer](https://www.jumpserver.org/) REST API, targeting **v4.10
 - **Go 1.25** — uses `math/rand/v2`, `maps.Clone`, `for range int`, and other modern features
 
 ## Installation
+
+**Requires Go 1.25 or later.**
 
 ```bash
 go get github.com/fit2cloud-sdk/jumpserver-sdk-go
@@ -207,7 +209,7 @@ client := jumpserver.NewClient(
 | Account Templates | `client.AccountTemplates` | Account template CRUD |
 | Change Secrets | `client.ChangeSecrets` | Secret rotation policy CRUD + execute |
 | Account Backups | `client.AccountBackups` | Backup plan CRUD + execute |
-| Organizations | `client.Organizations` | Organization CRUD |
+| Organizations | `client.Orgs` | Organization CRUD |
 | Permissions | `client.Permissions` | Asset permission CRUD, batch-relation add |
 | Self | `client.Self` | Current user's own assets & accounts |
 | Command Filters | `client.CommandFilters` | Command filter + command group CRUD |
@@ -233,7 +235,7 @@ jumpserver-sdk-go/
 ├── Makefile               # Build/test/coverage commands
 │
 ├── internal/core/         # Shared types (HTTPClient interface)
-├── internal/sdkutil/      # Internal utilities
+├── internal/util/      # Internal utilities
 ├── model/                 # Data models (pure type definitions)
 │
 ├── auth/                  # Authentication service
@@ -276,11 +278,14 @@ go run ./examples/integration
 ## Development
 
 ```bash
-make build       # Build all packages
-make test        # Run unit tests
-make vet         # Static analysis
-make all         # vet + test + build
-make coverage    # Generate test coverage report
+	make build       # Build all packages
+	make test        # Run unit tests
+	make vet         # Static analysis
+	make fmt         # Format code (gofmt -w -s)
+	make lint        # Static analysis (staticcheck)
+	make all         # vet + test + build
+	make precommit   # fmt + lint + vet + test + build
+	make coverage    # Generate test coverage report
 make clean       # Clean build artifacts
 ```
 

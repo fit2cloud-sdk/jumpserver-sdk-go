@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/core"
-	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/sdkutil"
+	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/util"
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/model"
 )
 
@@ -23,7 +23,7 @@ const (
 
 // ListFTPLogs returns a paginated list of FTP logs.
 func (s *Service) ListFTPLogs(ctx context.Context, opts *core.ListOptions) ([]model.FTPLog, *core.Response, error) {
-	return sdkutil.List[model.FTPLog](ctx, s.client, FTPLogListURL, opts)
+	return util.List[model.FTPLog](ctx, s.client, FTPLogListURL, opts)
 }
 
 // UploadFTPFile uploads a file associated with an FTP log entry.
@@ -47,7 +47,7 @@ func (s *Service) UploadFTPFile(ctx context.Context, ftpLogID, filePath string) 
 		return nil, err
 	}
 
-	url := sdkutil.Spath(FTPLogUploadURL, ftpLogID)
+	url := util.Spath(FTPLogUploadURL, ftpLogID)
 	httpReq, err := s.client.NewRequest(ctx, http.MethodPost, url, nil)
 	if err != nil {
 		return nil, err

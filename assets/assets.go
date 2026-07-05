@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/core"
-	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/sdkutil"
+	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/util"
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/model"
 )
 
@@ -38,32 +38,17 @@ func (s *AssetsService) List(ctx context.Context, filters map[string]string, opt
 			params[k] = v
 		}
 	}
-	path := sdkutil.AppendQuery(AssetListURL, params)
-	httpReq, err := s.client.NewRequest(ctx, "GET", path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-	var page model.AssetPage
-	resp, err := s.client.Do(ctx, httpReq, &page)
-	if err != nil {
-		return nil, resp, err
-	}
-	if resp != nil {
-		resp.Count = page.Total
-		resp.NextURL = page.NextURL
-		resp.PreviousURL = page.PreviousURL
-	}
-	return page.Results, resp, nil
+	return util.ListWithParams[model.Asset](ctx, s.client, AssetListURL, params)
 }
 
 // Get fetches an asset by ID.
 func (s *AssetsService) Get(ctx context.Context, id string) (*model.Asset, *core.Response, error) {
-	return sdkutil.Get[model.Asset](ctx, s.client, AssetDetailURL, id)
+	return util.Get[model.Asset](ctx, s.client, AssetDetailURL, id)
 }
 
 // Delete deletes an asset by ID.
 func (s *AssetsService) Delete(ctx context.Context, id string) (*core.Response, error) {
-	return sdkutil.Delete(ctx, s.client, AssetDetailURL, id)
+	return util.Delete(ctx, s.client, AssetDetailURL, id)
 }
 
 // PermUsers returns the users permitted to access an asset.
@@ -72,7 +57,7 @@ func (s *AssetsService) PermUsers(ctx context.Context, assetID string, opts *cor
 	if opts != nil {
 		opts.Apply(params)
 	}
-	path := sdkutil.AppendQuery(sdkutil.Spath(AssetPermUsersURL, assetID), params)
+	path := util.AppendQuery(util.Spath(AssetPermUsersURL, assetID), params)
 	httpReq, err := s.client.NewRequest(ctx, "GET", path, nil)
 	if err != nil {
 		return nil, nil, err

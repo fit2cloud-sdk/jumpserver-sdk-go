@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/core"
-	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/sdkutil"
+	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/util"
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/model"
 )
 
@@ -18,10 +18,10 @@ const (
 
 // ListLoginLogs returns a paginated list of login logs.
 func (s *Service) ListLoginLogs(ctx context.Context, opts *core.ListOptions) ([]model.LoginLog, *core.Response, error) {
-	return sdkutil.List[model.LoginLog](ctx, s.client, LoginLogListURL, opts)
+	return util.List[model.LoginLog](ctx, s.client, LoginLogListURL, opts)
 }
 
 // ListOperateLogs returns a paginated list of operate logs.
 func (s *Service) ListOperateLogs(ctx context.Context, opts *core.ListOptions) ([]model.OperateLog, *core.Response, error) {
-	return sdkutil.List[model.OperateLog](ctx, s.client, OperateLogListURL, opts)
+	return util.List[model.OperateLog](ctx, s.client, OperateLogListURL, opts)
 }

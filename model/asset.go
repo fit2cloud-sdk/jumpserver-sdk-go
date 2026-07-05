@@ -103,7 +103,7 @@ type AssetRequest struct {
 	Zone              string           `json:"zone,omitempty"`
 	IsActive          bool             `json:"is_active,omitempty"`
 	Comment           string           `json:"comment,omitempty"`
-	SpecInfo          AssetSpecInfo    `json:"spec_info,omitempty"`
+	SpecInfo          *AssetSpecInfo   `json:"spec_info,omitempty"`
 }
 
 // AssetPage is the paginated list envelope for Assets.

@@ -41,13 +41,13 @@ func testNodes() {
 	} else {
 		ok("Nodes.ChildrenTree (" + itoa(len(tree)) + " nodes)")
 		if len(tree) > 0 {
-			child, _, err := scoped.Nodes.CreateChild(ctx, tree[0].ID, &model.NodeChildRequest{
+			child, _, err := scoped.Nodes.CreateChild(ctx, tree[0].Meta.Data.ID, &model.NodeChildRequest{
 				Value: "child-" + ts,
 			})
 			if err != nil {
 				fail("Nodes.CreateChild", err)
 			} else {
-				ok("Nodes.CreateChild (key=" + child.Key + ")")
+				ok("Nodes.CreateChild (value=" + child.Value + ")")
 			}
 		}
 	}

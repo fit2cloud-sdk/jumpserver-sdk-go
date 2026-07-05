@@ -5,7 +5,7 @@ import (
 	"io"
 
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/core"
-	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/sdkutil"
+	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/util"
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/model"
 )
 
@@ -28,17 +28,17 @@ func NewService(c core.HTTPClient) *Service {
 
 // ListSessions returns a paginated list of sessions.
 func (s *Service) ListSessions(ctx context.Context, opts *core.ListOptions) ([]model.Session, *core.Response, error) {
-	return sdkutil.List[model.Session](ctx, s.client, SessionListURL, opts)
+	return util.List[model.Session](ctx, s.client, SessionListURL, opts)
 }
 
 // GetSession fetches a session by ID.
 func (s *Service) GetSession(ctx context.Context, id string) (*model.Session, *core.Response, error) {
-	return sdkutil.Get[model.Session](ctx, s.client, SessionDetailURL, id)
+	return util.Get[model.Session](ctx, s.client, SessionDetailURL, id)
 }
 
 // DownloadReplay streams the session replay archive into w.
 func (s *Service) DownloadReplay(ctx context.Context, sessionID string, w io.Writer) (*core.Response, error) {
-	httpReq, err := s.client.NewRequest(ctx, "GET", sdkutil.Spath(SessionReplayURL, sessionID), nil)
+	httpReq, err := s.client.NewRequest(ctx, "GET", util.Spath(SessionReplayURL, sessionID), nil)
 	if err != nil {
 		return nil, err
 	}

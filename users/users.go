@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/core"
-	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/sdkutil"
+	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/util"
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/model"
 )
 
@@ -41,27 +41,12 @@ func (s *Service) List(ctx context.Context, filters map[string]string, opts *cor
 			params[k] = v
 		}
 	}
-	path := sdkutil.AppendQuery(ListURL, params)
-	httpReq, err := s.client.NewRequest(ctx, "GET", path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-	var page model.UserPage
-	resp, err := s.client.Do(ctx, httpReq, &page)
-	if err != nil {
-		return nil, resp, err
-	}
-	if resp != nil {
-		resp.Count = page.Total
-		resp.NextURL = page.NextURL
-		resp.PreviousURL = page.PreviousURL
-	}
-	return page.Results, resp, nil
+	return util.ListWithParams[model.User](ctx, s.client, ListURL, params)
 }
 
 // Get fetches a user by ID.
 func (s *Service) Get(ctx context.Context, id string) (*model.User, *core.Response, error) {
-	return sdkutil.Get[model.User](ctx, s.client, DetailURL, id)
+	return util.Get[model.User](ctx, s.client, DetailURL, id)
 }
 
 // Profile fetches the currently-authenticated user.
@@ -80,22 +65,22 @@ func (s *Service) Profile(ctx context.Context) (*model.User, *core.Response, err
 
 // Create creates a new user.
 func (s *Service) Create(ctx context.Context, req *model.UserRequest) (*model.User, *core.Response, error) {
-	return sdkutil.Create[model.User, model.UserRequest](ctx, s.client, ListURL, req)
+	return util.Create[model.User, model.UserRequest](ctx, s.client, ListURL, req)
 }
 
 // Update patches a user.
 func (s *Service) Update(ctx context.Context, id string, req *model.UserRequest) (*model.User, *core.Response, error) {
-	return sdkutil.Update[model.User, model.UserRequest](ctx, s.client, DetailURL, id, req)
+	return util.Update[model.User, model.UserRequest](ctx, s.client, DetailURL, id, req)
 }
 
 // Replace replaces a user.
 func (s *Service) Replace(ctx context.Context, id string, req *model.UserRequest) (*model.User, *core.Response, error) {
-	return sdkutil.Replace[model.User, model.UserRequest](ctx, s.client, DetailURL, id, req)
+	return util.Replace[model.User, model.UserRequest](ctx, s.client, DetailURL, id, req)
 }
 
 // Delete deletes a user.
 func (s *Service) Delete(ctx context.Context, id string) (*core.Response, error) {
-	return sdkutil.Delete(ctx, s.client, DetailURL, id)
+	return util.Delete(ctx, s.client, DetailURL, id)
 }
 
 // Invite invites existing users into the current organization.
@@ -114,7 +99,7 @@ func (s *Service) ListGroups(ctx context.Context, userID string, opts *core.List
 	if opts != nil {
 		opts.Apply(params)
 	}
-	path := sdkutil.AppendQuery(fmt.Sprintf("/api/v1/users/users/%s/groups/", userID), params)
+	path := util.AppendQuery(fmt.Sprintf("/api/v1/users/users/%s/groups/", userID), params)
 	httpReq, err := s.client.NewRequest(ctx, "GET", path, nil)
 	if err != nil {
 		return nil, nil, err

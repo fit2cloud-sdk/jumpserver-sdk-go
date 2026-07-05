@@ -19,14 +19,14 @@ type Token struct {
 
 // ConnectionTokenRequest is the body for creating a connection token.
 type ConnectionTokenRequest struct {
-	User            string `json:"user,omitempty"`
-	Asset           string `json:"asset"`
-	Account         string `json:"account"`
-	Protocol        string `json:"protocol"`
-	ConnectMethod   string `json:"connect_method"`
-	InputUsername   string `json:"input_username,omitempty"`
-	InputSecret     string `json:"input_secret,omitempty"`
-	ConnectOptions  any    `json:"connect_options,omitempty"`
+	User           string `json:"user,omitempty"`
+	Asset          string `json:"asset"`
+	Account        string `json:"account"`
+	Protocol       string `json:"protocol"`
+	ConnectMethod  string `json:"connect_method"`
+	InputUsername  string `json:"input_username,omitempty"`
+	InputSecret    string `json:"input_secret,omitempty"`
+	ConnectOptions any    `json:"connect_options,omitempty"`
 }
 
 // ConnectionToken is the result of a connection token creation.

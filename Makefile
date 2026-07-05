@@ -1,6 +1,6 @@
 .PHONY: all build test vet integration clean coverage
 
-all: vet test build
+all: fmt vet lint test build
 
 build:
 	go build ./...
@@ -21,3 +21,11 @@ clean:
 coverage:
 	go test -coverprofile=coverage.out ./...
 	go tool cover -html=coverage.out -o coverage.html
+
+fmt:
+	gofmt -w -s .
+
+lint:
+	staticcheck ./...
+
+precommit: fmt lint vet test build

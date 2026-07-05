@@ -18,15 +18,15 @@ type Ticket struct {
 
 // TicketRequest is the create payload (asset-application type).
 type TicketRequest struct {
-	Type           string   `json:"type"`
-	Title          string   `json:"title"`
-	ApplyAccounts  []string `json:"apply_accounts,omitempty"`
-	ApplyAssets    []string `json:"apply_assets,omitempty"`
-	ApplyNodes     []string `json:"apply_nodes,omitempty"`
-	ApplyActions   []string `json:"apply_actions,omitempty"`
-	ApplyDateStart string   `json:"apply_date_start,omitempty"`
-	ApplyDateExpired string `json:"apply_date_expired,omitempty"`
-	Comment        string   `json:"comment,omitempty"`
+	Type             string   `json:"type"`
+	Title            string   `json:"title"`
+	ApplyAccounts    []string `json:"apply_accounts,omitempty"`
+	ApplyAssets      []string `json:"apply_assets,omitempty"`
+	ApplyNodes       []string `json:"apply_nodes,omitempty"`
+	ApplyActions     []string `json:"apply_actions,omitempty"`
+	ApplyDateStart   string   `json:"apply_date_start,omitempty"`
+	ApplyDateExpired string   `json:"apply_date_expired,omitempty"`
+	Comment          string   `json:"comment,omitempty"`
 }
 
 // TicketPage is the paginated list envelope for Tickets.
@@ -49,10 +49,10 @@ type TicketFlow struct {
 
 // TicketFlowRequest is the update payload for ticket flows.
 type TicketFlowRequest struct {
-	ApproveStrategy any  `json:"approve_strategy,omitempty"`
+	ApproveStrategy any      `json:"approve_strategy,omitempty"`
 	Applicants      []string `json:"applicants,omitempty"`
-	IsActive        bool `json:"is_active,omitempty"`
-	Comment         string `json:"comment,omitempty"`
+	IsActive        bool     `json:"is_active,omitempty"`
+	Comment         string   `json:"comment,omitempty"`
 }
 
 // TicketFlowPage is the paginated list envelope for TicketFlows.

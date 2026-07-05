@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/core"
-	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/sdkutil"
+	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/util"
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/model"
 )
 
@@ -26,27 +26,27 @@ func NewGroupsService(c core.HTTPClient) *GroupsService {
 
 // List returns a paginated list of groups.
 func (s *GroupsService) List(ctx context.Context, opts *core.ListOptions) ([]model.Group, *core.Response, error) {
-	return sdkutil.List[model.Group](ctx, s.client, GroupListURL, opts)
+	return util.List[model.Group](ctx, s.client, GroupListURL, opts)
 }
 
 // Get fetches a group by ID.
 func (s *GroupsService) Get(ctx context.Context, id string) (*model.Group, *core.Response, error) {
-	return sdkutil.Get[model.Group](ctx, s.client, GroupDetailURL, id)
+	return util.Get[model.Group](ctx, s.client, GroupDetailURL, id)
 }
 
 // Create creates a group.
 func (s *GroupsService) Create(ctx context.Context, req *model.GroupRequest) (*model.Group, *core.Response, error) {
-	return sdkutil.Create[model.Group, model.GroupRequest](ctx, s.client, GroupListURL, req)
+	return util.Create[model.Group, model.GroupRequest](ctx, s.client, GroupListURL, req)
 }
 
 // Update patches a group.
 func (s *GroupsService) Update(ctx context.Context, id string, req *model.GroupRequest) (*model.Group, *core.Response, error) {
-	return sdkutil.Update[model.Group, model.GroupRequest](ctx, s.client, GroupDetailURL, id, req)
+	return util.Update[model.Group, model.GroupRequest](ctx, s.client, GroupDetailURL, id, req)
 }
 
 // Delete deletes a group.
 func (s *GroupsService) Delete(ctx context.Context, id string) (*core.Response, error) {
-	return sdkutil.Delete(ctx, s.client, GroupDetailURL, id)
+	return util.Delete(ctx, s.client, GroupDetailURL, id)
 }
 
 // BindUsers assigns a set of users to a group via the relation endpoint.
@@ -65,7 +65,7 @@ func (s *GroupsService) ListUsers(ctx context.Context, groupID string, opts *cor
 	if opts != nil {
 		opts.Apply(params)
 	}
-	path := sdkutil.AppendQuery(ListURL, params)
+	path := util.AppendQuery(ListURL, params)
 	httpReq, err := s.client.NewRequest(ctx, "GET", path, nil)
 	if err != nil {
 		return nil, nil, err

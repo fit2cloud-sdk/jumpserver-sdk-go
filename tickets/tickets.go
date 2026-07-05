@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/core"
-	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/sdkutil"
+	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/util"
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/model"
 )
 
@@ -28,23 +28,23 @@ func NewService(c core.HTTPClient) *Service {
 
 // List returns a paginated list of tickets.
 func (s *Service) List(ctx context.Context, opts *core.ListOptions) ([]model.Ticket, *core.Response, error) {
-	return sdkutil.List[model.Ticket](ctx, s.client, ListURL, opts)
+	return util.List[model.Ticket](ctx, s.client, ListURL, opts)
 }
 
 // Get fetches a ticket by ID.
 func (s *Service) Get(ctx context.Context, id string) (*model.Ticket, *core.Response, error) {
-	return sdkutil.Get[model.Ticket](ctx, s.client, DetailURL, id)
+	return util.Get[model.Ticket](ctx, s.client, DetailURL, id)
 }
 
 // Create opens an asset-application ticket.
 func (s *Service) Create(ctx context.Context, req *model.TicketRequest) (*model.Ticket, *core.Response, error) {
-	return sdkutil.Create[model.Ticket, model.TicketRequest](ctx, s.client, ListURL, req)
+	return util.Create[model.Ticket, model.TicketRequest](ctx, s.client, ListURL, req)
 }
 
 // Approve approves a ticket with action "approve" or "reject".
 func (s *Service) Approve(ctx context.Context, id, action string) (*core.Response, error) {
 	body := map[string]string{"action": action}
-	httpReq, err := s.client.NewRequest(ctx, "POST", sdkutil.Spath(ApproveURL, id), body)
+	httpReq, err := s.client.NewRequest(ctx, "POST", util.Spath(ApproveURL, id), body)
 	if err != nil {
 		return nil, err
 	}
@@ -53,10 +53,10 @@ func (s *Service) Approve(ctx context.Context, id, action string) (*core.Respons
 
 // ListFlows returns a paginated list of ticket flows (workflow definitions).
 func (s *Service) ListFlows(ctx context.Context, opts *core.ListOptions) ([]model.TicketFlow, *core.Response, error) {
-	return sdkutil.List[model.TicketFlow](ctx, s.client, FlowListURL, opts)
+	return util.List[model.TicketFlow](ctx, s.client, FlowListURL, opts)
 }
 
 // UpdateFlow patches a ticket flow definition.
 func (s *Service) UpdateFlow(ctx context.Context, id string, req *model.TicketFlowRequest) (*model.TicketFlow, *core.Response, error) {
-	return sdkutil.Update[model.TicketFlow, model.TicketFlowRequest](ctx, s.client, FlowDetailURL, id, req)
+	return util.Update[model.TicketFlow, model.TicketFlowRequest](ctx, s.client, FlowDetailURL, id, req)
 }

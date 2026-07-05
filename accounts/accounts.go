@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/core"
-	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/sdkutil"
+	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/util"
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/model"
 )
 
@@ -34,17 +34,17 @@ func NewService(c core.HTTPClient) *Service {
 
 // List returns a paginated list of accounts.
 func (s *Service) List(ctx context.Context, opts *core.ListOptions) ([]model.Account, *core.Response, error) {
-	return sdkutil.List[model.Account](ctx, s.client, ListURL, opts)
+	return util.List[model.Account](ctx, s.client, ListURL, opts)
 }
 
 // Get fetches an account by ID.
 func (s *Service) Get(ctx context.Context, id string) (*model.Account, *core.Response, error) {
-	return sdkutil.Get[model.Account](ctx, s.client, DetailURL, id)
+	return util.Get[model.Account](ctx, s.client, DetailURL, id)
 }
 
 // Create creates an account.
 func (s *Service) Create(ctx context.Context, req *model.AccountRequest) (*model.Account, *core.Response, error) {
-	return sdkutil.Create[model.Account, model.AccountRequest](ctx, s.client, ListURL, req)
+	return util.Create[model.Account, model.AccountRequest](ctx, s.client, ListURL, req)
 }
 
 // CreateBulk adds the same account to many assets in one call.
@@ -67,25 +67,25 @@ func (s *Service) CreateBulkByTemplate(ctx context.Context, req *model.AccountBu
 
 // Update patches an account.
 func (s *Service) Update(ctx context.Context, id string, req *model.AccountRequest) (*model.Account, *core.Response, error) {
-	return sdkutil.Update[model.Account, model.AccountRequest](ctx, s.client, DetailURL, id, req)
+	return util.Update[model.Account, model.AccountRequest](ctx, s.client, DetailURL, id, req)
 }
 
 // Delete deletes an account.
 func (s *Service) Delete(ctx context.Context, id string) (*core.Response, error) {
-	return sdkutil.Delete(ctx, s.client, DetailURL, id)
+	return util.Delete(ctx, s.client, DetailURL, id)
 }
 
 // GetSecret fetches the decrypted account secret.
 func (s *Service) GetSecret(ctx context.Context, id string) (*model.Account, *core.Response, error) {
-	return sdkutil.Get[model.Account](ctx, s.client, SecretURL, id)
+	return util.Get[model.Account](ctx, s.client, SecretURL, id)
 }
 
 // Verify returns the connectivity verification result for an account (v4).
 func (s *Service) Verify(ctx context.Context, id string) (*model.AccountVerifyResult, *core.Response, error) {
-	return sdkutil.Get[model.AccountVerifyResult](ctx, s.client, VerifyDetailURL, id)
+	return util.Get[model.AccountVerifyResult](ctx, s.client, VerifyDetailURL, id)
 }
 
 // CreateVerifyTask creates a connectivity verification task (v4).
 func (s *Service) CreateVerifyTask(ctx context.Context, req *model.AccountVerifyTaskRequest) (*model.AccountVerifyTask, *core.Response, error) {
-	return sdkutil.Create[model.AccountVerifyTask, model.AccountVerifyTaskRequest](ctx, s.client, VerifyTaskURL, req)
+	return util.Create[model.AccountVerifyTask, model.AccountVerifyTaskRequest](ctx, s.client, VerifyTaskURL, req)
 }

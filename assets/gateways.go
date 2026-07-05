@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/core"
-	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/sdkutil"
+	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/util"
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/model"
 )
 
@@ -26,25 +26,25 @@ func NewGatewaysService(c core.HTTPClient) *GatewaysService {
 
 // List returns a paginated list of gateways.
 func (s *GatewaysService) List(ctx context.Context, opts *core.ListOptions) ([]model.Gateway, *core.Response, error) {
-	return sdkutil.List[model.Gateway](ctx, s.client, GatewayListURL, opts)
+	return util.List[model.Gateway](ctx, s.client, GatewayListURL, opts)
 }
 
 // Get fetches a gateway by ID.
 func (s *GatewaysService) Get(ctx context.Context, id string) (*model.Gateway, *core.Response, error) {
-	return sdkutil.Get[model.Gateway](ctx, s.client, GatewayDetailURL, id)
+	return util.Get[model.Gateway](ctx, s.client, GatewayDetailURL, id)
 }
 
 // Create creates a gateway.
 func (s *GatewaysService) Create(ctx context.Context, req *model.GatewayRequest) (*model.Gateway, *core.Response, error) {
-	return sdkutil.Create[model.Gateway, model.GatewayRequest](ctx, s.client, GatewayListURL, req)
+	return util.Create[model.Gateway, model.GatewayRequest](ctx, s.client, GatewayListURL, req)
 }
 
 // Update patches a gateway.
 func (s *GatewaysService) Update(ctx context.Context, id string, req *model.GatewayRequest) (*model.Gateway, *core.Response, error) {
-	return sdkutil.Update[model.Gateway, model.GatewayRequest](ctx, s.client, GatewayDetailURL, id, req)
+	return util.Update[model.Gateway, model.GatewayRequest](ctx, s.client, GatewayDetailURL, id, req)
 }
 
 // Delete deletes a gateway.
 func (s *GatewaysService) Delete(ctx context.Context, id string) (*core.Response, error) {
-	return sdkutil.Delete(ctx, s.client, GatewayDetailURL, id)
+	return util.Delete(ctx, s.client, GatewayDetailURL, id)
 }

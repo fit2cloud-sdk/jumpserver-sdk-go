@@ -1,4 +1,4 @@
-package sdkutil
+package util
 
 import (
 	"fmt"

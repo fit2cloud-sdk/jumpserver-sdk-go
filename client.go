@@ -60,27 +60,27 @@ type Client struct {
 	logger        Logger
 	debugRequests bool
 
-	Auth       *auth.Service
-	Users      *users.Service
-	UserGroups *users.GroupsService
-	Roles      *rbac.Service
-	Assets     *assets.AssetsService
-	Hosts      *assets.CategoryService
-	Devices    *assets.CategoryService
-	Databases  *assets.CategoryService
-	Webs       *assets.CategoryService
-	Clouds     *assets.CategoryService
-	Customs    *assets.CategoryService
-	Nodes      *assets.NodesService
-	Platforms  *assets.PlatformsService
-	Zones      *assets.ZonesService
+	Auth             *auth.Service
+	Users            *users.Service
+	UserGroups       *users.GroupsService
+	Roles            *rbac.Service
+	Assets           *assets.AssetsService
+	Hosts            *assets.CategoryService
+	Devices          *assets.CategoryService
+	Databases        *assets.CategoryService
+	Webs             *assets.CategoryService
+	Clouds           *assets.CategoryService
+	Customs          *assets.CategoryService
+	Nodes            *assets.NodesService
+	Platforms        *assets.PlatformsService
+	Zones            *assets.ZonesService
 	Gateways         *assets.GatewaysService
 	Labels           *labels.Service
 	Accounts         *accounts.Service
 	AccountTemplates *accounts.TemplatesService
 	ChangeSecrets    *accounts.ChangeSecretService
 	AccountBackups   *accounts.BackupService
-	Organizations    *orgs.Service
+	Orgs    *orgs.Service
 	Permissions      *perms.Service
 	Self             *perms.SelfService
 	CommandFilters   *acls.CommandFiltersService
@@ -150,7 +150,7 @@ func (c *Client) initServices() {
 	c.AccountTemplates = accounts.NewTemplatesService(c)
 	c.ChangeSecrets = accounts.NewChangeSecretService(c)
 	c.AccountBackups = accounts.NewBackupService(c)
-	c.Organizations = orgs.NewService(c)
+	c.Orgs = orgs.NewService(c)
 	c.Permissions = perms.NewService(c)
 	c.Self = perms.NewSelfService(c)
 	c.CommandFilters = acls.NewCommandFiltersService(c)

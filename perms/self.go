@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/core"
-	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/sdkutil"
+	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/util"
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/model"
 )
 
@@ -30,7 +30,7 @@ func (s *SelfService) ListAssets(ctx context.Context, filters map[string]string,
 			params[k] = v
 		}
 	}
-	path := sdkutil.AppendQuery(SelfAssetsListURL, params)
+	path := util.AppendQuery(SelfAssetsListURL, params)
 	httpReq, err := s.client.NewRequest(ctx, "GET", path, nil)
 	if err != nil {
 		return nil, nil, err
@@ -50,5 +50,5 @@ func (s *SelfService) ListAssets(ctx context.Context, filters map[string]string,
 
 // GetAsset returns the detailed view of an asset visible to the current user.
 func (s *SelfService) GetAsset(ctx context.Context, assetID string) (*model.SelfAssetDetail, *core.Response, error) {
-	return sdkutil.Get[model.SelfAssetDetail](ctx, s.client, SelfAssetAccountsURL, assetID)
+	return util.Get[model.SelfAssetDetail](ctx, s.client, SelfAssetAccountsURL, assetID)
 }

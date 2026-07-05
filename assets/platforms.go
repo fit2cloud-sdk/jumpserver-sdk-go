@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/core"
-	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/sdkutil"
+	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/util"
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/model"
 )
 
@@ -27,10 +27,10 @@ func NewPlatformsService(c core.HTTPClient) *PlatformsService {
 
 // List returns a paginated list of platforms.
 func (s *PlatformsService) List(ctx context.Context, opts *core.ListOptions) ([]model.Platform, *core.Response, error) {
-	return sdkutil.List[model.Platform](ctx, s.client, PlatformListURL, opts)
+	return util.List[model.Platform](ctx, s.client, PlatformListURL, opts)
 }
 
 // Get fetches a platform by ID.
 func (s *PlatformsService) Get(ctx context.Context, id int) (*model.Platform, *core.Response, error) {
-	return sdkutil.Get[model.Platform](ctx, s.client, PlatformDetailURL, id)
+	return util.Get[model.Platform](ctx, s.client, PlatformDetailURL, id)
 }

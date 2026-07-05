@@ -117,9 +117,9 @@ func testCategoryAssets() {
 		}
 
 		asset, _, err := tc.svc.Create(ctx, &model.AssetRequest{
-			Name: fmt.Sprintf("%s-%s", strings.ToLower(tc.name), ts),
-			Address: tc.address,
-			Platform: p.ID,
+			Name:      fmt.Sprintf("%s-%s", strings.ToLower(tc.name), ts),
+			Address:   tc.address,
+			Platform:  p.ID,
 			Protocols: protocols,
 		})
 		if err != nil {
@@ -130,9 +130,9 @@ func testCategoryAssets() {
 		ok(fmt.Sprintf("%s.Create (id=%s, platform=%s/%d)", tc.name, asset.ID, p.Name, p.ID))
 
 		u, _, err := tc.svc.Update(ctx, asset.ID, &model.AssetRequest{
-			Name: fmt.Sprintf("%s-upd-%s", strings.ToLower(tc.name), ts),
-			Address: tc.address,
-			Platform: p.ID,
+			Name:      fmt.Sprintf("%s-upd-%s", strings.ToLower(tc.name), ts),
+			Address:   tc.address,
+			Platform:  p.ID,
 			Protocols: protocols,
 		})
 		if err != nil {

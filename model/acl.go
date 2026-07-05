@@ -24,18 +24,19 @@ type CommandFilter struct {
 // (Users, Assets, etc.) accept either a list of IDs or a special object
 // like {"type": "all"}.
 type CommandFilterRequest struct {
-	ID            string `json:"id,omitempty"`
-	Name          string `json:"name"`
-	CommandGroups any    `json:"command_groups,omitempty"`
-	Accounts      any    `json:"accounts,omitempty"`
-	Users         any    `json:"users,omitempty"`
-	UserGroups    any    `json:"user_groups,omitempty"`
-	Assets        any    `json:"assets,omitempty"`
-	Nodes         any    `json:"nodes,omitempty"`
-	Action        string `json:"action"`
-	IsActive      bool   `json:"is_active,omitempty"`
-	Priority      int    `json:"priority,omitempty"`
-	Comment       string `json:"comment,omitempty"`
+	ID            string   `json:"id,omitempty"`
+	Name          string   `json:"name"`
+	CommandGroups any      `json:"command_groups,omitempty"`
+	Accounts      any      `json:"accounts,omitempty"`
+	Users         any      `json:"users,omitempty"`
+	UserGroups    any      `json:"user_groups,omitempty"`
+	Assets        any      `json:"assets,omitempty"`
+	Nodes         any      `json:"nodes,omitempty"`
+	Action        string   `json:"action"`
+	Reviewers     []string `json:"reviewers,omitempty"`
+	IsActive      bool     `json:"is_active,omitempty"`
+	Priority      int      `json:"priority,omitempty"`
+	Comment       string   `json:"comment,omitempty"`
 }
 
 // CommandFilterPage is the paginated list envelope for CommandFilters.

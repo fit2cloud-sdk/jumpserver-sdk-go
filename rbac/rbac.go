@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/core"
-	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/sdkutil"
+	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/util"
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/model"
 )
 
@@ -29,27 +29,12 @@ func (s *Service) List(ctx context.Context, scope string, opts *core.ListOptions
 	if opts != nil {
 		opts.Apply(params)
 	}
-	path := sdkutil.AppendQuery(sdkutil.Spath(RoleListURL, scope), params)
-	httpReq, err := s.client.NewRequest(ctx, "GET", path, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-	var page model.RolePage
-	resp, err := s.client.Do(ctx, httpReq, &page)
-	if err != nil {
-		return nil, resp, err
-	}
-	if resp != nil {
-		resp.Count = page.Total
-		resp.NextURL = page.NextURL
-		resp.PreviousURL = page.PreviousURL
-	}
-	return page.Results, resp, nil
+	return util.ListWithParams[model.Role](ctx, s.client, util.Spath(RoleListURL, scope), params)
 }
 
 // Get fetches a role by scope + ID.
 func (s *Service) Get(ctx context.Context, scope, id string) (*model.Role, *core.Response, error) {
-	httpReq, err := s.client.NewRequest(ctx, "GET", sdkutil.Spath(RoleDetailURL, scope, id), nil)
+	httpReq, err := s.client.NewRequest(ctx, "GET", util.Spath(RoleDetailURL, scope, id), nil)
 	if err != nil {
 		return nil, nil, err
 	}

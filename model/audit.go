@@ -2,19 +2,19 @@ package model
 
 // Session is an audit record of a user's connection to an asset.
 type Session struct {
-	ID            string `json:"id"`
-	User          string `json:"user"`
-	Asset         string `json:"asset"`
-	Account       string `json:"account"`
-	Protocol      string `json:"protocol"`
-	Type          LabelValue `json:"type"`
-	LoginFrom     LabelValue `json:"login_from"`
-	RemoteAddr    string `json:"remote_addr"`
-	IsFinished    bool   `json:"is_finished"`
-	IsSuccess     bool   `json:"is_success"`
-	OrgID         string `json:"org_id"`
-	DateStart     string `json:"date_start"`
-	DateEnd       string `json:"date_end"`
+	ID         string     `json:"id"`
+	User       string     `json:"user"`
+	Asset      string     `json:"asset"`
+	Account    string     `json:"account"`
+	Protocol   string     `json:"protocol"`
+	Type       LabelValue `json:"type"`
+	LoginFrom  LabelValue `json:"login_from"`
+	RemoteAddr string     `json:"remote_addr"`
+	IsFinished bool       `json:"is_finished"`
+	IsSuccess  bool       `json:"is_success"`
+	OrgID      string     `json:"org_id"`
+	DateStart  string     `json:"date_start"`
+	DateEnd    string     `json:"date_end"`
 }
 
 // SessionPage is the paginated list envelope for Sessions.
@@ -48,17 +48,17 @@ type Command struct {
 
 // FTPLog is a file-transfer audit record.
 type FTPLog struct {
-	ID          string `json:"id"`
-	User        string `json:"user"`
-	Asset       string `json:"asset"`
-	Account     string `json:"account"`
-	Session     string `json:"session"`
-	RemoteAddr  string `json:"remote_addr"`
-	Operate     LabelValue `json:"operate"`
-	Path        string `json:"path"`
-	IsSuccess   bool   `json:"is_success"`
-	OrgID       string `json:"org_id"`
-	DateStart   string `json:"date_start"`
+	ID         string     `json:"id"`
+	User       string     `json:"user"`
+	Asset      string     `json:"asset"`
+	Account    string     `json:"account"`
+	Session    string     `json:"session"`
+	RemoteAddr string     `json:"remote_addr"`
+	Operate    LabelValue `json:"operate"`
+	Path       string     `json:"path"`
+	IsSuccess  bool       `json:"is_success"`
+	OrgID      string     `json:"org_id"`
+	DateStart  string     `json:"date_start"`
 }
 
 // LoginLog is a user login audit record.
@@ -86,4 +86,3 @@ type OperateLog struct {
 	RemoteAddr   string     `json:"remote_addr"`
 	Datetime     string     `json:"datetime"`
 }
-

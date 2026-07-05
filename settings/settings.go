@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/core"
-	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/sdkutil"
+	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/util"
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/model"
 )
 
@@ -44,7 +44,7 @@ func (s *Service) List(ctx context.Context, opts *core.ListOptions) (map[string]
 	if opts != nil {
 		opts.Apply(params)
 	}
-	path := sdkutil.AppendQuery(SettingListURL, params)
+	path := util.AppendQuery(SettingListURL, params)
 	httpReq, err := s.client.NewRequest(ctx, "GET", path, nil)
 	if err != nil {
 		return nil, nil, err

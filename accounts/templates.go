@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/core"
-	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/sdkutil"
+	"github.com/fit2cloud-sdk/jumpserver-sdk-go/internal/util"
 	"github.com/fit2cloud-sdk/jumpserver-sdk-go/model"
 )
 
@@ -25,25 +25,25 @@ func NewTemplatesService(c core.HTTPClient) *TemplatesService {
 
 // List returns a paginated list of account templates.
 func (s *TemplatesService) List(ctx context.Context, opts *core.ListOptions) ([]model.AccountTemplate, *core.Response, error) {
-	return sdkutil.List[model.AccountTemplate](ctx, s.client, TemplateListURL, opts)
+	return util.List[model.AccountTemplate](ctx, s.client, TemplateListURL, opts)
 }
 
 // Get fetches an account template by ID.
 func (s *TemplatesService) Get(ctx context.Context, id string) (*model.AccountTemplate, *core.Response, error) {
-	return sdkutil.Get[model.AccountTemplate](ctx, s.client, TemplateDetailURL, id)
+	return util.Get[model.AccountTemplate](ctx, s.client, TemplateDetailURL, id)
 }
 
 // Create creates an account template.
 func (s *TemplatesService) Create(ctx context.Context, req *model.AccountTemplateRequest) (*model.AccountTemplate, *core.Response, error) {
-	return sdkutil.Create[model.AccountTemplate, model.AccountTemplateRequest](ctx, s.client, TemplateListURL, req)
+	return util.Create[model.AccountTemplate, model.AccountTemplateRequest](ctx, s.client, TemplateListURL, req)
 }
 
 // Update patches an account template.
 func (s *TemplatesService) Update(ctx context.Context, id string, req *model.AccountTemplateRequest) (*model.AccountTemplate, *core.Response, error) {
-	return sdkutil.Update[model.AccountTemplate, model.AccountTemplateRequest](ctx, s.client, TemplateDetailURL, id, req)
+	return util.Update[model.AccountTemplate, model.AccountTemplateRequest](ctx, s.client, TemplateDetailURL, id, req)
 }
 
 // Delete deletes an account template.
 func (s *TemplatesService) Delete(ctx context.Context, id string) (*core.Response, error) {
-	return sdkutil.Delete(ctx, s.client, TemplateDetailURL, id)
+	return util.Delete(ctx, s.client, TemplateDetailURL, id)
 }
