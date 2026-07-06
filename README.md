@@ -4,15 +4,13 @@
 # jumpserver-sdk-go
 
 Go SDK for [JumpServer](https://www.jumpserver.org/) REST API, targeting **v4.10.x**.
-
 [中文文档](README_CN.md) | [English](README.md)
-
 [![Go Reference](https://pkg.go.dev/badge/github.com/fit2cloud-sdk/jumpserver-sdk-go.svg)](https://pkg.go.dev/github.com/fit2cloud-sdk/jumpserver-sdk-go)
 [![Go Report Card](https://goreportcard.com/badge/github.com/fit2cloud-sdk/jumpserver-sdk-go)](https://goreportcard.com/report/github.com/fit2cloud-sdk/jumpserver-sdk-go)
 
 ## Features
 
-- **Full CRUD coverage** — 31 service modules covering users, assets, accounts, permissions, audits, tickets, ops jobs, and more
+- **Full CRUD coverage** — 26 service modules covering users, assets, accounts, permissions, audits, tickets, ops jobs, and more
 - **Typed asset categories** — Hosts, Devices, Databases, Webs, Clouds, Customs each with dedicated CRUD operations
 - **Multiple auth methods** — AccessKey (HMAC-SHA256), Bearer Token, Private Token, Password Auth (username/password), custom Authenticator
 - **Organization scope** — `WithOrgScope(id)` switches org context without rebuilding the client
@@ -21,9 +19,11 @@ Go SDK for [JumpServer](https://www.jumpserver.org/) REST API, targeting **v4.10
 - **Zero third-party dependencies** — pure standard library
 - **Go 1.25** — uses `math/rand/v2`, `maps.Clone`, `for range int`, and other modern features
 
-## Installation
+## Requirements
 
-**Requires Go 1.25 or later.**
+- Go 1.25+
+
+## Installation
 
 ```bash
 go get github.com/fit2cloud-sdk/jumpserver-sdk-go
@@ -33,17 +33,14 @@ go get github.com/fit2cloud-sdk/jumpserver-sdk-go
 
 ```go
 package main
-
 import (
     "context"
     "fmt"
     "log"
     "os"
-
     jumpserver "github.com/fit2cloud-sdk/jumpserver-sdk-go"
     "github.com/fit2cloud-sdk/jumpserver-sdk-go/model"
 )
-
 func main() {
     client := jumpserver.NewClient(
         jumpserver.WithBaseURL(os.Getenv("JUMPSERVER_URL")),
@@ -52,9 +49,7 @@ func main() {
             os.Getenv("JUMPSERVER_SECRET_ID"),
         ),
     )
-
     ctx := context.Background()
-
     // List users
     users, _, err := client.Users.List(ctx, nil, &jumpserver.ListOptions{Limit: 20})
     if err != nil {
@@ -63,13 +58,11 @@ func main() {
     for _, u := range users {
         fmt.Println(u.Username, u.Email)
     }
-
     // Filter by condition
     users, _, _ = client.Users.List(ctx,
         map[string]string{"username": "admin"},
         &jumpserver.ListOptions{Limit: 10},
     )
-
     // Create a host asset
     host, _, _ := client.Hosts.Create(ctx, &model.AssetRequest{
         Name:      "web-01",
@@ -86,16 +79,12 @@ func main() {
 ```go
 // AccessKey HMAC-SHA256 signature (recommended for service accounts)
 jumpserver.WithAccessKeyAuth(keyID, secretID)
-
 // Bearer Token
 jumpserver.WithBearerToken(token)
-
 // Private Token (Authorization: Token <token>)
 jumpserver.WithPrivateToken(token)
-
 // Password Auth (username/password, auto-obtains Bearer token)
 jumpserver.WithPasswordAuth(username, password)
-
 // Custom authenticator
 jumpserver.WithAuthenticator(myAuth)
 ```
@@ -111,7 +100,6 @@ client := jumpserver.NewClient(
     jumpserver.WithOrg("org-uuid"),
     // ...
 )
-
 // Derive a scoped client (shares underlying HTTP connection)
 scoped := client.WithOrgScope("other-org-uuid")
 users, _, _ := scoped.Users.List(ctx, nil, nil)
@@ -129,7 +117,6 @@ users, resp, _ := client.Users.List(ctx, nil, &jumpserver.ListOptions{
 if resp.HasNextPage() {
     // fetch next page...
 }
-
 // Auto-iterate all pages
 var all []model.User
 jumpserver.WalkPages(ctx, &jumpserver.ListOptions{Limit: 100}, 0,
@@ -156,7 +143,6 @@ if err != nil {
     if jumpserver.IsRateLimited(err) {
         fmt.Println("rate limited")
     }
-
     var apiErr *jumpserver.APIError
     if errors.As(err, &apiErr) {
         fmt.Println(apiErr.StatusCode, apiErr.Message, string(apiErr.Body))
@@ -177,51 +163,44 @@ client := jumpserver.NewClient(
 ```
 
 **Retried:**
+
 - HTTP 408, 429, 500, 502, 503, 504
 - Transient network errors (timeout, connection reset, temporary DNS failure)
-
-**Not retried:**
+  **Not retried:**
 - `context.Canceled` / `context.DeadlineExceeded`
 - TLS certificate errors
 - 4xx client errors (except 408, 429)
 
 ## Services
 
-| Service | Field | Description |
-|---------|-------|-------------|
-| Auth | `client.Auth` | Login, MFA, connection tokens, SSO |
-| Users | `client.Users` | User CRUD, Profile |
-| User Groups | `client.UserGroups` | Group CRUD, member management |
-| Roles | `client.Roles` | Org/system role queries |
-| Assets (generic) | `client.Assets` | Generic asset queries, permission users |
-| Hosts | `client.Hosts` | Host CRUD |
-| Devices | `client.Devices` | Network device CRUD |
-| Databases | `client.Databases` | Database CRUD |
-| Webs | `client.Webs` | Web asset CRUD |
-| Clouds | `client.Clouds` | Cloud asset CRUD |
-| Customs | `client.Customs` | Custom asset CRUD |
-| Nodes | `client.Nodes` | Asset tree node CRUD |
-| Platforms | `client.Platforms` | Platform template queries |
-| Zones | `client.Zones` | Network zone CRUD |
-| Gateways | `client.Gateways` | Gateway CRUD |
-| Labels | `client.Labels` | Label CRUD |
-| Accounts | `client.Accounts` | Account CRUD, connectivity tests |
-| Account Templates | `client.AccountTemplates` | Account template CRUD |
-| Change Secrets | `client.ChangeSecrets` | Secret rotation policy CRUD + execute |
-| Account Backups | `client.AccountBackups` | Backup plan CRUD + execute |
-| Organizations | `client.Orgs` | Organization CRUD |
-| Permissions | `client.Permissions` | Asset permission CRUD, batch-relation add |
-| Self | `client.Self` | Current user's own assets & accounts |
-| Command Filters | `client.CommandFilters` | Command filter + command group CRUD |
-| Login ACL | `client.LoginACLs` | Login ACL queries |
-| Audits | `client.Audits` | Sessions, commands, FTP, login & operation logs |
-| Terminal | `client.Terminal` | Terminal config, connect methods |
-| Tickets | `client.Tickets` | Ticket + workflow management |
-| Settings | `client.Settings` | System setting queries |
-| Ops | `client.Ops` | Quick-command job create & result query |
-| Enterprise | `client.Xpack` | License queries |
-
-## Package Structure
+| Service                                         | Client Field              | Methods                                                                                                                                                        | Description                                   |
+| ----------------------------------------------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| Auth                                            | `client.Auth`             | CreateToken / ConfirmLoginStatus / SelectMFA / CreateConnectionToken / CreateSuperConnectionToken / GetSuperConnectionTokenSecret / SSOLoginURL / GetClientURL | Login, MFA, connection tokens, SSO            |
+| Users                                           | `client.Users`            | List / Get / Profile / Create / Update / Replace / Delete / Invite / ListGroups                                                                                | User CRUD + profile + group membership        |
+| User Groups                                     | `client.UserGroups`       | List / Get / Create / Update / Delete / BindUsers / ListUsers                                                                                                  | Group CRUD + member management                |
+| Roles                                           | `client.Roles`            | List(scope) / Get(scope)                                                                                                                                       | RBAC role queries by scope                    |
+| Assets                                          | `client.Assets`           | List / Get / Delete / PermUsers                                                                                                                                | Generic asset operations + permitted users    |
+| Hosts / Devices / DBs / Webs / Clouds / Customs | `client.Hosts` etc.       | List / Get / Create / Update / Replace / Delete                                                                                                                | Category-specific asset CRUD                  |
+| Nodes                                           | `client.Nodes`            | List / Get / Create / Update / Delete / ChildrenTree / CreateChild                                                                                             | Asset tree node CRUD + children               |
+| Platforms                                       | `client.Platforms`        | List / Get                                                                                                                                                     | Platform template queries (read-only)         |
+| Zones                                           | `client.Zones`            | List / Get / Create / Update / Delete                                                                                                                          | Network zone CRUD                             |
+| Gateways                                        | `client.Gateways`         | List / Get / Create / Update / Delete                                                                                                                          | Gateway CRUD                                  |
+| Labels                                          | `client.Labels`           | List / Get / Create / Update / Delete                                                                                                                          | Label CRUD                                    |
+| Accounts                                        | `client.Accounts`         | List / Get / Create / Update / Delete / GetSecret / CreateBulk / CreateBulkByTemplate / Verify / CreateVerifyTask                                              | Account CRUD + secret + bulk + connectivity   |
+| Account Templates                               | `client.AccountTemplates` | List / Get / Create / Update / Delete                                                                                                                          | Template CRUD                                 |
+| Change Secrets                                  | `client.ChangeSecrets`    | List / Get / Create / Update / Delete / Execute                                                                                                                | Secret rotation CRUD + execution              |
+| Account Backups                                 | `client.AccountBackups`   | List / Get / Create / Update / Delete / Execute                                                                                                                | Backup plan CRUD + execution                  |
+| Organizations                                   | `client.Orgs`             | List / Get / Create / Update / Delete                                                                                                                          | Organization CRUD                             |
+| Permissions                                     | `client.Permissions`      | List / Get / Create / Update / Delete / GetSelfAssetAccounts / AddUsersRelations / AddUserGroupsRelations / AddAssetsRelations / AddNodesRelations             | Asset permission CRUD + batch relations       |
+| Command Filters                                 | `client.CommandFilters`   | List / Get / Create / Update / Delete / ListGroups / GetGroup / CreateGroup / UpdateGroup / DeleteGroup                                                        | Command filter + command group CRUD           |
+| Login ACLs                                      | `client.LoginACLs`        | List / Get                                                                                                                                                     | Login ACL queries (read-only)                 |
+| Audits                                          | `client.Audits`           | ListSessions / GetSession / DownloadReplay / ListCommands / ListFTPLogs / ListLoginLogs / ListOperateLogs                                                      | Sessions, commands, FTP, login & operate logs |
+| Terminal                                        | `client.Terminal`         | Register / Config / Heartbeat / ConnectMethods / GetTask                                                                                                       | Terminal component registration & config      |
+| Tickets                                         | `client.Tickets`          | List / Get / Create / Approve / ListFlows / UpdateFlow                                                                                                         | Tickets + flow management                     |
+| Settings                                        | `client.Settings`         | Public / List                                                                                                                                                  | System settings                               |
+| Self                                            | `client.Self`             | ListAssets / GetAsset                                                                                                                                          | Self-service permitted assets                 |
+| Ops                                             | `client.Ops`              | CreateJob / GetJobResult                                                                                                                                       | Ops job execution                             |
+| Xpack                                           | `client.Xpack`            | License                                                                                                                                                        | Enterprise license info                       |
 
 ```
 jumpserver-sdk-go/
@@ -269,7 +248,6 @@ Run the full CRUD test suite against a real JumpServer instance:
 export JUMPSERVER_URL=https://your-jumpserver.example.com
 export JUMPSERVER_KEY_ID=your-key-id
 export JUMPSERVER_SECRET_ID=your-secret-id
-
 make integration
 # or directly
 go run ./examples/integration

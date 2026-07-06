@@ -12,7 +12,7 @@
 
 ## 特性
 
-- **完整 CRUD 覆盖** — 31 个服务模块，涵盖用户、资产、账号、权限、审计、工单、作业管理等全部核心功能
+- **完整 CRUD 覆盖** — 26 个服务模块，涵盖用户、资产、账号、权限、审计、工单、作业管理等全部核心功能
 - **分类资产支持** — Hosts、Devices、Databases、Webs、Clouds、Customs 六大资产类别独立操作
 - **多种认证方式** — AccessKey (HMAC-SHA256)、Bearer Token、Private Token、密码认证 (username/password)、自定义 Authenticator
 - **组织作用域** — `WithOrgScope(id)` 切换组织上下文，无需重建 Client
@@ -21,9 +21,13 @@
 - **零第三方依赖** — 纯标准库实现
 - **Go 1.25** — 使用 `math/rand/v2`、`maps.Clone`、`for range int` 等新特性
 
+
+## 环境要求
+
+- Go 1.25+
+
 ## 安装
 
-**要求 Go 1.25 或更高版本。**
 
 ```bash
 go get github.com/fit2cloud-sdk/jumpserver-sdk-go
@@ -191,40 +195,34 @@ client := jumpserver.NewClient(
 
 ## 服务列表
 
-| 服务        | 字段                      | 说明                            |
-| ----------- | ------------------------- | ------------------------------- |
-| 认证        | `client.Auth`             | 登录、MFA、连接令牌、SSO        |
-| 用户        | `client.Users`            | 用户 CRUD、Profile              |
-| 用户组      | `client.UserGroups`       | 用户组 CRUD、成员管理           |
-| 角色        | `client.Roles`            | 组织/系统角色查询               |
-| 资产 (通用) | `client.Assets`           | 通用资产查询、授权用户          |
-| 主机        | `client.Hosts`            | 主机 CRUD                       |
-| 网络设备    | `client.Devices`          | 网络设备 CRUD                   |
-| 数据库      | `client.Databases`        | 数据库 CRUD                     |
-| Web         | `client.Webs`             | Web 资产 CRUD                   |
-| 云          | `client.Clouds`           | 云资产 CRUD                     |
-| 自定义      | `client.Customs`          | 自定义资产 CRUD                 |
-| 节点        | `client.Nodes`            | 资产树节点 CRUD                 |
-| 平台        | `client.Platforms`        | 平台模板查询                    |
-| 网域        | `client.Zones`            | 网域 CRUD                       |
-| 网关        | `client.Gateways`         | 网关 CRUD                       |
-| 标签        | `client.Labels`           | 标签 CRUD                       |
-| 账号        | `client.Accounts`         | 账号 CRUD、连接性测试           |
-| 账号模板    | `client.AccountTemplates` | 账号模板 CRUD                   |
-| 改密自动化  | `client.ChangeSecrets`    | 改密策略 CRUD + 执行            |
-| 账号备份    | `client.AccountBackups`   | 备份计划 CRUD + 执行            |
-| 组织        | `client.Orgs`    | 组织 CRUD                       |
-| 权限        | `client.Permissions`      | 资产授权 CRUD、批量添加关系     |
-| 我的资产    | `client.Self`             | 当前用户可见的资产及账号        |
-| 命令过滤    | `client.CommandFilters`   | 命令过滤 + 命令组 CRUD          |
-| 登录 ACL    | `client.LoginACLs`        | 登录 ACL 查询                   |
-| 审计        | `client.Audits`           | 会话、命令、FTP、登录、操作日志 |
-| 终端        | `client.Terminal`         | 终端配置、连接方式              |
-| 工单        | `client.Tickets`          | 工单 + 流程管理                 |
-| 设置        | `client.Settings`         | 系统设置查询                    |
-| 作业        | `client.Ops`              | 快捷命令创建与结果查询          |
-| 企业版      | `client.Xpack`            | License 查询                    |
-
+| 服务 | 字段 | 方法 | 说明 |
+|------|------|------|------|
+| 认证 | `client.Auth` | CreateToken / ConfirmLoginStatus / SelectMFA / CreateConnectionToken / CreateSuperConnectionToken / GetSuperConnectionTokenSecret / SSOLoginURL / GetClientURL | 登录、MFA、连接令牌、SSO |
+| 用户 | `client.Users` | List / Get / Profile / Create / Update / Replace / Delete / Invite / ListGroups | 用户 CRUD + 个人信息 + 组成员 |
+| 用户组 | `client.UserGroups` | List / Get / Create / Update / Delete / BindUsers / ListUsers | 用户组 CRUD + 成员管理 |
+| 角色 | `client.Roles` | List(scope) / Get(scope) | 按作用域查询 RBAC 角色 |
+| 资产 | `client.Assets` | List / Get / Delete / PermUsers | 通用资产操作 + 授权用户 |
+| 主机 / 网络设备 / 数据库 / Web / 云 / 自定义 | `client.Hosts` 等 | List / Get / Create / Update / Replace / Delete | 分类资产 CRUD |
+| 节点 | `client.Nodes` | List / Get / Create / Update / Delete / ChildrenTree / CreateChild | 资产树节点 CRUD + 子节点 |
+| 平台 | `client.Platforms` | List / Get | 平台模板查询（只读）|
+| 网域 | `client.Zones` | List / Get / Create / Update / Delete | 网域 CRUD |
+| 网关 | `client.Gateways` | List / Get / Create / Update / Delete | 网关 CRUD |
+| 标签 | `client.Labels` | List / Get / Create / Update / Delete | 标签 CRUD |
+| 账号 | `client.Accounts` | List / Get / Create / Update / Delete / GetSecret / CreateBulk / CreateBulkByTemplate / Verify / CreateVerifyTask | 账号 CRUD + 密钥 + 批量 + 连通性 |
+| 账号模板 | `client.AccountTemplates` | List / Get / Create / Update / Delete | 模板 CRUD |
+| 改密自动化 | `client.ChangeSecrets` | List / Get / Create / Update / Delete / Execute | 改密策略 CRUD + 执行 |
+| 账号备份 | `client.AccountBackups` | List / Get / Create / Update / Delete / Execute | 备份计划 CRUD + 执行 |
+| 组织 | `client.Orgs` | List / Get / Create / Update / Delete | 组织 CRUD |
+| 权限 | `client.Permissions` | List / Get / Create / Update / Delete / GetSelfAssetAccounts / AddUsersRelations / AddUserGroupsRelations / AddAssetsRelations / AddNodesRelations | 资产授权 CRUD + 批量关系 |
+| 命令过滤 | `client.CommandFilters` | List / Get / Create / Update / Delete / ListGroups / GetGroup / CreateGroup / UpdateGroup / DeleteGroup | 命令过滤 + 命令组 CRUD |
+| 登录 ACL | `client.LoginACLs` | List / Get | 登录 ACL 查询（只读）|
+| 审计 | `client.Audits` | ListSessions / GetSession / DownloadReplay / ListCommands / ListFTPLogs / ListLoginLogs / ListOperateLogs | 会话、命令、FTP、登录、操作日志 |
+| 终端 | `client.Terminal` | Register / Config / Heartbeat / ConnectMethods / GetTask | 终端注册与配置 |
+| 工单 | `client.Tickets` | List / Get / Create / Approve / ListFlows / UpdateFlow | 工单 + 流程管理 |
+| 设置 | `client.Settings` | Public / List | 系统设置 |
+| 我的资产 | `client.Self` | ListAssets / GetAsset | 当前用户授权的资产 |
+| 作业 | `client.Ops` | CreateJob / GetJobResult | 作业执行 |
+| 企业版 | `client.Xpack` | License | 企业版 License 信息 |
 ## 包结构
 
 ```
