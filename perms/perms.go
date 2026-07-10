@@ -53,6 +53,10 @@ func (s *Service) Update(ctx context.Context, id string, req *model.AssetPermiss
 func (s *Service) Delete(ctx context.Context, id string) (*core.Response, error) {
 	return util.Delete(ctx, s.client, AssetPermissionDetailURL, id)
 }
+// BatchDelete deletes multiple asset permissions by ID using the cache-then-delete pattern.
+func (s *Service) BatchDelete(ctx context.Context, ids []string) error {
+	return util.BatchDelete(ctx, s.client, AssetPermissionListURL, ids)
+}
 
 // GetSelfAssetAccounts returns the accounts available to the current
 // user for a specific asset. Corresponds to the Python

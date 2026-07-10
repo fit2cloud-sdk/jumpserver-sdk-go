@@ -47,3 +47,7 @@ func (s *TemplatesService) Update(ctx context.Context, id string, req *model.Acc
 func (s *TemplatesService) Delete(ctx context.Context, id string) (*core.Response, error) {
 	return util.Delete(ctx, s.client, TemplateDetailURL, id)
 }
+// BatchDelete deletes multiple account templates by ID using the cache-then-delete pattern.
+func (s *TemplatesService) BatchDelete(ctx context.Context, ids []string) error {
+	return util.BatchDelete(ctx, s.client, TemplateListURL, ids)
+}

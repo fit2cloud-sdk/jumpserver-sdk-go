@@ -52,3 +52,7 @@ func (s *ZonesService) Update(ctx context.Context, id string, req *model.ZoneReq
 func (s *ZonesService) Delete(ctx context.Context, id string) (*core.Response, error) {
 	return util.Delete(ctx, s.client, ZoneDetailURL, id)
 }
+// BatchDelete deletes multiple zones by ID using the cache-then-delete pattern.
+func (s *ZonesService) BatchDelete(ctx context.Context, ids []string) error {
+	return util.BatchDelete(ctx, s.client, ZoneListURL, ids)
+}

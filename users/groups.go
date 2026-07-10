@@ -48,6 +48,10 @@ func (s *GroupsService) Update(ctx context.Context, id string, req *model.GroupR
 func (s *GroupsService) Delete(ctx context.Context, id string) (*core.Response, error) {
 	return util.Delete(ctx, s.client, GroupDetailURL, id)
 }
+// BatchDelete deletes multiple user groups by ID using the cache-then-delete pattern.
+func (s *GroupsService) BatchDelete(ctx context.Context, ids []string) error {
+	return util.BatchDelete(ctx, s.client, GroupListURL, ids)
+}
 
 // BindUsers assigns a set of users to a group via the relation endpoint.
 func (s *GroupsService) BindUsers(ctx context.Context, relations []model.UserGroupRelation) (*core.Response, error) {

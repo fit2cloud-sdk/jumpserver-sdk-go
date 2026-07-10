@@ -50,6 +50,10 @@ func (s *AssetsService) Get(ctx context.Context, id string) (*model.Asset, *core
 func (s *AssetsService) Delete(ctx context.Context, id string) (*core.Response, error) {
 	return util.Delete(ctx, s.client, AssetDetailURL, id)
 }
+// BatchDelete deletes multiple assets by ID using the cache-then-delete pattern.
+func (s *AssetsService) BatchDelete(ctx context.Context, ids []string) error {
+	return util.BatchDelete(ctx, s.client, AssetListURL, ids)
+}
 
 // PermUsers returns the users permitted to access an asset.
 func (s *AssetsService) PermUsers(ctx context.Context, assetID string, opts *core.ListOptions) ([]model.User, *core.Response, error) {

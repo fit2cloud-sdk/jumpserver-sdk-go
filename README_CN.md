@@ -21,13 +21,11 @@
 - **零第三方依赖** — 纯标准库实现
 - **Go 1.25** — 使用 `math/rand/v2`、`maps.Clone`、`for range int` 等新特性
 
-
 ## 环境要求
 
 - Go 1.25+
 
 ## 安装
-
 
 ```bash
 go get github.com/fit2cloud-sdk/jumpserver-sdk-go
@@ -195,34 +193,35 @@ client := jumpserver.NewClient(
 
 ## 服务列表
 
-| 服务 | 字段 | 方法 | 说明 |
-|------|------|------|------|
-| 认证 | `client.Auth` | CreateToken / ConfirmLoginStatus / SelectMFA / CreateConnectionToken / CreateSuperConnectionToken / GetSuperConnectionTokenSecret / SSOLoginURL / GetClientURL | 登录、MFA、连接令牌、SSO |
-| 用户 | `client.Users` | List / Get / Profile / Create / Update / Replace / Delete / Invite / ListGroups | 用户 CRUD + 个人信息 + 组成员 |
-| 用户组 | `client.UserGroups` | List / Get / Create / Update / Delete / BindUsers / ListUsers | 用户组 CRUD + 成员管理 |
-| 角色 | `client.Roles` | List(scope) / Get(scope) | 按作用域查询 RBAC 角色 |
-| 资产 | `client.Assets` | List / Get / Delete / PermUsers | 通用资产操作 + 授权用户 |
-| 主机 / 网络设备 / 数据库 / Web / 云 / 自定义 | `client.Hosts` 等 | List / Get / Create / Update / Replace / Delete | 分类资产 CRUD |
-| 节点 | `client.Nodes` | List / Get / Create / Update / Delete / ChildrenTree / CreateChild | 资产树节点 CRUD + 子节点 |
-| 平台 | `client.Platforms` | List / Get | 平台模板查询（只读）|
-| 网域 | `client.Zones` | List / Get / Create / Update / Delete | 网域 CRUD |
-| 网关 | `client.Gateways` | List / Get / Create / Update / Delete | 网关 CRUD |
-| 标签 | `client.Labels` | List / Get / Create / Update / Delete | 标签 CRUD |
-| 账号 | `client.Accounts` | List / Get / Create / Update / Delete / GetSecret / CreateBulk / CreateBulkByTemplate / Verify / CreateVerifyTask | 账号 CRUD + 密钥 + 批量 + 连通性 |
-| 账号模板 | `client.AccountTemplates` | List / Get / Create / Update / Delete | 模板 CRUD |
-| 改密自动化 | `client.ChangeSecrets` | List / Get / Create / Update / Delete / Execute | 改密策略 CRUD + 执行 |
-| 账号备份 | `client.AccountBackups` | List / Get / Create / Update / Delete / Execute | 备份计划 CRUD + 执行 |
-| 组织 | `client.Orgs` | List / Get / Create / Update / Delete | 组织 CRUD |
-| 权限 | `client.Permissions` | List / Get / Create / Update / Delete / GetSelfAssetAccounts / AddUsersRelations / AddUserGroupsRelations / AddAssetsRelations / AddNodesRelations | 资产授权 CRUD + 批量关系 |
-| 命令过滤 | `client.CommandFilters` | List / Get / Create / Update / Delete / ListGroups / GetGroup / CreateGroup / UpdateGroup / DeleteGroup | 命令过滤 + 命令组 CRUD |
-| 登录 ACL | `client.LoginACLs` | List / Get | 登录 ACL 查询（只读）|
-| 审计 | `client.Audits` | ListSessions / GetSession / DownloadReplay / ListCommands / ListFTPLogs / ListLoginLogs / ListOperateLogs | 会话、命令、FTP、登录、操作日志 |
-| 终端 | `client.Terminal` | Register / Config / Heartbeat / ConnectMethods / GetTask | 终端注册与配置 |
-| 工单 | `client.Tickets` | List / Get / Create / Approve / ListFlows / UpdateFlow | 工单 + 流程管理 |
-| 设置 | `client.Settings` | Public / List | 系统设置 |
-| 我的资产 | `client.Self` | ListAssets / GetAsset | 当前用户授权的资产 |
-| 作业 | `client.Ops` | CreateJob / GetJobResult | 作业执行 |
-| 企业版 | `client.Xpack` | License | 企业版 License 信息 |
+| 服务                                         | 字段                      | 方法                                                                                                                                                           | 说明                             |
+| -------------------------------------------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
+| 认证                                         | `client.Auth`             | CreateToken / ConfirmLoginStatus / SelectMFA / CreateConnectionToken / CreateSuperConnectionToken / GetSuperConnectionTokenSecret / SSOLoginURL / GetClientURL | 登录、MFA、连接令牌、SSO         |
+| 用户                                         | `client.Users`            | List / Get / Profile / Create / Update / Replace / Delete / Invite / ListGroups                                                                                | 用户 CRUD + 个人信息 + 组成员    |
+| 用户组                                       | `client.UserGroups`       | List / Get / Create / Update / Delete / BindUsers / ListUsers                                                                                                  | 用户组 CRUD + 成员管理           |
+| 角色                                         | `client.Roles`            | List(scope) / Get(scope)                                                                                                                                       | 按作用域查询 RBAC 角色           |
+| 资产                                         | `client.Assets`           | List / Get / Delete / PermUsers                                                                                                                                | 通用资产操作 + 授权用户          |
+| 主机 / 网络设备 / 数据库 / Web / 云 / 自定义 | `client.Hosts` 等         | List / Get / Create / Update / Replace / Delete                                                                                                                | 分类资产 CRUD                    |
+| 节点                                         | `client.Nodes`            | List / Get / Create / Update / Delete / ChildrenTree / CreateChild                                                                                             | 资产树节点 CRUD + 子节点         |
+| 平台                                         | `client.Platforms`        | List / Get                                                                                                                                                     | 平台模板查询（只读）             |
+| 网域                                         | `client.Zones`            | List / Get / Create / Update / Delete                                                                                                                          | 网域 CRUD                        |
+| 网关                                         | `client.Gateways`         | List / Get / Create / Update / Delete                                                                                                                          | 网关 CRUD                        |
+| 标签                                         | `client.Labels`           | List / Get / Create / Update / Delete                                                                                                                          | 标签 CRUD                        |
+| 账号                                         | `client.Accounts`         | List / Get / Create / Update / Delete / GetSecret / CreateBulk / CreateBulkByTemplate / Verify / CreateVerifyTask                                              | 账号 CRUD + 密钥 + 批量 + 连通性 |
+| 账号模板                                     | `client.AccountTemplates` | List / Get / Create / Update / Delete                                                                                                                          | 模板 CRUD                        |
+| 改密自动化                                   | `client.ChangeSecrets`    | List / Get / Create / Update / Delete / Execute                                                                                                                | 改密策略 CRUD + 执行             |
+| 账号备份                                     | `client.AccountBackups`   | List / Get / Create / Update / Delete / Execute                                                                                                                | 备份计划 CRUD + 执行             |
+| 组织                                         | `client.Orgs`             | List / Get / Create / Update / Delete                                                                                                                          | 组织 CRUD                        |
+| 权限                                         | `client.Permissions`      | List / Get / Create / Update / Delete / GetSelfAssetAccounts / AddUsersRelations / AddUserGroupsRelations / AddAssetsRelations / AddNodesRelations             | 资产授权 CRUD + 批量关系         |
+| 命令过滤                                     | `client.CommandFilters`   | List / Get / Create / Update / Delete / ListGroups / GetGroup / CreateGroup / UpdateGroup / DeleteGroup                                                        | 命令过滤 + 命令组 CRUD           |
+| 登录 ACL                                     | `client.LoginACLs`        | List / Get                                                                                                                                                     | 登录 ACL 查询（只读）            |
+| 审计                                         | `client.Audits`           | ListSessions / GetSession / DownloadReplay / ListCommands / ListFTPLogs / ListLoginLogs / ListOperateLogs                                                      | 会话、命令、FTP、登录、操作日志  |
+| 终端                                         | `client.Terminal`         | Register / Config / Heartbeat / ConnectMethods / GetTask                                                                                                       | 终端注册与配置                   |
+| 工单                                         | `client.Tickets`          | List / Get / Create / Approve / ListFlows / UpdateFlow                                                                                                         | 工单 + 流程管理                  |
+| 设置                                         | `client.Settings`         | Public / List                                                                                                                                                  | 系统设置                         |
+| 我的资产                                     | `client.Self`             | ListAssets / GetAsset                                                                                                                                          | 当前用户授权的资产               |
+| 作业                                         | `client.Ops`              | CreateJob / GetJobResult                                                                                                                                       | 作业执行                         |
+| 企业版                                       | `client.Xpack`            | License                                                                                                                                                        | 企业版 License 信息              |
+
 ## 包结构
 
 ```

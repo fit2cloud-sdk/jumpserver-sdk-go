@@ -59,6 +59,10 @@ func (s *CommandFiltersService) Update(ctx context.Context, id string, req *mode
 func (s *CommandFiltersService) Delete(ctx context.Context, id string) (*core.Response, error) {
 	return util.Delete(ctx, s.client, CommandFilterDetailURL, id)
 }
+// BatchDelete deletes multiple command filters by ID using the cache-then-delete pattern.
+func (s *CommandFiltersService) BatchDelete(ctx context.Context, ids []string) error {
+	return util.BatchDelete(ctx, s.client, CommandFilterListURL, ids)
+}
 
 // ListGroups returns a paginated list of command groups.
 func (s *CommandFiltersService) ListGroups(ctx context.Context, opts *core.ListOptions) ([]model.CommandGroup, *core.Response, error) {

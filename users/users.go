@@ -82,6 +82,10 @@ func (s *Service) Replace(ctx context.Context, id string, req *model.UserRequest
 func (s *Service) Delete(ctx context.Context, id string) (*core.Response, error) {
 	return util.Delete(ctx, s.client, DetailURL, id)
 }
+// BatchDelete deletes multiple users by ID using the cache-then-delete pattern.
+func (s *Service) BatchDelete(ctx context.Context, ids []string) error {
+	return util.BatchDelete(ctx, s.client, ListURL, ids)
+}
 
 // Invite invites existing users into the current organization.
 func (s *Service) Invite(ctx context.Context, userIDs []string, orgRoles []string) (*core.Response, error) {

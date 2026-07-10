@@ -48,3 +48,7 @@ func (s *GatewaysService) Update(ctx context.Context, id string, req *model.Gate
 func (s *GatewaysService) Delete(ctx context.Context, id string) (*core.Response, error) {
 	return util.Delete(ctx, s.client, GatewayDetailURL, id)
 }
+// BatchDelete deletes multiple gateways by ID using the cache-then-delete pattern.
+func (s *GatewaysService) BatchDelete(ctx context.Context, ids []string) error {
+	return util.BatchDelete(ctx, s.client, GatewayListURL, ids)
+}

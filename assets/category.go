@@ -63,3 +63,7 @@ func (s *CategoryService) Replace(ctx context.Context, id string, req *model.Ass
 func (s *CategoryService) Delete(ctx context.Context, id string) (*core.Response, error) {
 	return util.Delete(ctx, s.client, s.detailURL, id)
 }
+// BatchDelete deletes multiple category-scoped assets by ID using the cache-then-delete pattern.
+func (s *CategoryService) BatchDelete(ctx context.Context, ids []string) error {
+	return util.BatchDelete(ctx, s.client, s.listURL, ids)
+}

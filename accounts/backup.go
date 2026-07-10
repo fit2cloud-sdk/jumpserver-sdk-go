@@ -48,6 +48,10 @@ func (s *BackupService) Update(ctx context.Context, id string, req *model.Accoun
 func (s *BackupService) Delete(ctx context.Context, id string) (*core.Response, error) {
 	return util.Delete(ctx, s.client, BackupDetailURL, id)
 }
+// BatchDelete deletes multiple account backup plans by ID using the cache-then-delete pattern.
+func (s *BackupService) BatchDelete(ctx context.Context, ids []string) error {
+	return util.BatchDelete(ctx, s.client, BackupListURL, ids)
+}
 
 // Execute triggers a backup plan execution.
 func (s *BackupService) Execute(ctx context.Context, planID string) (map[string]any, *core.Response, error) {

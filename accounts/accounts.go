@@ -74,6 +74,10 @@ func (s *Service) Update(ctx context.Context, id string, req *model.AccountReque
 func (s *Service) Delete(ctx context.Context, id string) (*core.Response, error) {
 	return util.Delete(ctx, s.client, DetailURL, id)
 }
+// BatchDelete deletes multiple accounts by ID using the cache-then-delete pattern.
+func (s *Service) BatchDelete(ctx context.Context, ids []string) error {
+	return util.BatchDelete(ctx, s.client, ListURL, ids)
+}
 
 // GetSecret fetches the decrypted account secret.
 func (s *Service) GetSecret(ctx context.Context, id string) (*model.Account, *core.Response, error) {

@@ -50,3 +50,7 @@ func (s *Service) Update(ctx context.Context, id string, req *model.LabelRequest
 func (s *Service) Delete(ctx context.Context, id string) (*core.Response, error) {
 	return util.Delete(ctx, s.client, DetailURL, id)
 }
+// BatchDelete deletes multiple labels by ID using the cache-then-delete pattern.
+func (s *Service) BatchDelete(ctx context.Context, ids []string) error {
+	return util.BatchDelete(ctx, s.client, ListURL, ids)
+}

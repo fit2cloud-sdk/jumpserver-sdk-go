@@ -48,6 +48,10 @@ func (s *ChangeSecretService) Update(ctx context.Context, id string, req *model.
 func (s *ChangeSecretService) Delete(ctx context.Context, id string) (*core.Response, error) {
 	return util.Delete(ctx, s.client, ChangeSecretDetailURL, id)
 }
+// BatchDelete deletes multiple change secret automations by ID using the cache-then-delete pattern.
+func (s *ChangeSecretService) BatchDelete(ctx context.Context, ids []string) error {
+	return util.BatchDelete(ctx, s.client, ChangeSecretListURL, ids)
+}
 
 // Execute triggers a change secret execution for the given automation.
 func (s *ChangeSecretService) Execute(ctx context.Context, automationID string) (map[string]any, *core.Response, error) {
